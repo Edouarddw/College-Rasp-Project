@@ -16,7 +16,7 @@ def encode(key, plain_text ): #Fonction chiffrant le message selon le chiffremen
         key_c = key[i % len(key)]
         enc_c = chr((ord(e) + ord(key_c)) % 256)
         enc.append(enc_c)
-    return ("".join(enc)).encode()).decode())
+    return ("".join(enc))#.encode()).decode()
     
 def decode(key, cipher_text): #Fonction dechiffrant le message selon le chiffrement vigenere
     
