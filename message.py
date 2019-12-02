@@ -4,10 +4,10 @@ from time import sleep
 
 x = 0 #Valeur initial du compteur = 0
 sense = SenseHat()
-Message = [] # Liste de stockage des caractère du message
-key= "chocolat" # Clé du chiffrement vigenere
+Message = [] # Liste de stockage des caracteres du message
+key= "chocolat" # Clef du chiffrement vigenere
 sense.low_light = True 
-lock = True #False si un message est déjà enregistré
+lock = True #False si un message est deja enregistre
 
 def encode(key, plain_text ): #Fonction chiffrant le message selon le chiffrement vigenere
     
@@ -18,7 +18,7 @@ def encode(key, plain_text ): #Fonction chiffrant le message selon le chiffremen
         enc.append(enc_c)
     return ("".join(enc))#.encode()).decode() Dans la librairie mais fonctionne seulement sans
     
-def decode(key, cipher_text): #Fonction déchiffrant le message selon le chiffrement vigenere
+def decode(key, cipher_text): #Fonction dechiffrant le message selon le chiffrement vigenere
     
    
     dec = []
@@ -31,8 +31,8 @@ def decode(key, cipher_text): #Fonction déchiffrant le message selon le chiffre
     return (dec)
 
 
-def value(value, min_value=0, max_value=9): #Fonction limitant la valeur des caractère du message à des chiffres
-    # Permet de défiler en continu dans les chiffres
+def value(value, min_value=0, max_value=9): #Fonction limitant la valeur des caractere du message à des chiffres
+    # Permet de defiler en continu dans les chiffres
     if value > 9 : value=0
     if value < 0 : value=9
     return min(max_value, max(min_value, value))
@@ -57,13 +57,13 @@ def Confirm(event): #Press ajoute la lettre. Hold confirme le message et ferme l
     if event.action != ACTION_PRESSED:
         if lock :
             if event.action == ACTION_RELEASED:
-                sense.show_letter(str(x),(0, 255, 0)) #le caractère devient vert ( confirmation )
+                sense.show_letter(str(x),(0, 255, 0)) #le caractere devient vert ( confirmation )
                 Message.append(str(x)) #ajout du caractère à la string Message
                 sleep(0.2)
                 sense.show_letter(str(x)) #le caractère redevient blanc
             else: #Longue pression 
                 f = open("message.txt", "w") #ouvre un .txt
-                f.write(encode(key,"".join(Message))) #écrit le message chiffré 
+                f.write(encode(key,"".join(Message))) #ecrit le message chiffre 
                 f.close()
                 sense.clear()
                 lock = False #Permet d'enregistrer qu'une fois
