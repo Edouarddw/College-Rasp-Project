@@ -16,7 +16,7 @@ def encode(key, plain_text ): #Fonction chiffrant le message selon le chiffremen
         key_c = key[i % len(key)]
         enc_c = chr((ord(e) + ord(key_c)) % 256)
         enc.append(enc_c)
-    return ("".join(enc))#.encode()).decode() Dans la librairie mais fonctionne seulement sans
+    return ("".join(enc)).encode()).decode())
     
 def decode(key, cipher_text): #Fonction dechiffrant le message selon le chiffrement vigenere
     
@@ -31,7 +31,7 @@ def decode(key, cipher_text): #Fonction dechiffrant le message selon le chiffrem
     return (dec)
 
 
-def value(value, min_value=0, max_value=9): #Fonction limitant la valeur des caractere du message à des chiffres
+def value(value, min_value=0, max_value=9): #Fonction limitant la valeur des caractere du message a des chiffres
     # Permet de defiler en continu dans les chiffres
     if value > 9 : value=0
     if value < 0 : value=9
@@ -58,15 +58,15 @@ def Confirm(event): #Press ajoute la lettre. Hold confirme le message et ferme l
         if lock :
             if event.action == ACTION_RELEASED:
                 sense.show_letter(str(x),(0, 255, 0)) #le caractere devient vert ( confirmation )
-                Message.append(str(x)) #ajout du caractère à la string Message
+                Message.append(str(x)) #ajout du caractere a la string Message
                 sleep(0.2)
-                sense.show_letter(str(x)) #le caractère redevient blanc
+                sense.show_letter(str(x)) #le caractere redevient blanc
             else: #Longue pression 
                 f = open("message.txt", "w") #ouvre un .txt
                 f.write(encode(key,"".join(Message))) #ecrit le message chiffre 
                 f.close()
                 sense.clear()
-                lock = False #Permet d'enregistrer qu'une fois
+                lock = False #Permet d enregistrer qu une fois
 
 sense.stick.direction_up = Plus #Joystick vers le haut : valeur +1
 sense.stick.direction_down = Moins #Joystick vers le bas : valeur -1
