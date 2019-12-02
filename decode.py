@@ -1,4 +1,7 @@
-key= "chocolat"
+from sense_hat import SenseHat
+sense = SenseHat()
+
+key= "chocolat" #clef introduite lors de l encodage
     
 def decode(key, cipher_text): #Fonction dechiffrant le message selon le chiffrement vigenere
     
@@ -13,9 +16,9 @@ def decode(key, cipher_text): #Fonction dechiffrant le message selon le chiffrem
     return (dec)
 
 
-f= open("message.txt","r")
-message = f.read()
+f= open("message.txt","r") #oubre le document message.txt
+message = f.read() #string message = contenu du doc
 f.close()
 
-sense.show_message(decode(key,message))
+sense.show_message(decode(key,message)) #montre sur le rasp le message decode
 
