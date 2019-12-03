@@ -17,7 +17,6 @@ def decode(key, cipher_text): #Fonction dechiffrant le message selon le chiffrem
         dec_c = chr((256 + ord(e) - ord(key_c)) % 256)
         dec.append(dec_c)
     dec= str("".join(dec))
-    print(dec)
     return (dec)
 
 f = open("message.txt", "w") #ouvre un .txt
