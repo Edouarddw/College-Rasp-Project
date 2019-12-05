@@ -1,5 +1,5 @@
 from sense_hat import SenseHat
-#from subprocess import call
+from subprocess import call
 sense = SenseHat()
 sense.clear()
 key= "chocolat" #clef introduite lors de l encodage
@@ -37,7 +37,7 @@ while tourne :
       if event.action == 'pressed' and event.direction == "middle":
         tourne = False
         sense.clear()
-        #call("sudo shutdown now", shell=True) #stop le rasp
+        call("sudo shutdown now", shell=True) #stop le rasp
       if event.action == "pressed" and event.direction != "middle" :
         conserver = False
         delete = True
@@ -50,7 +50,7 @@ while tourne :
         f= open("message.txt","w") #ouvre le document message.txt
         f.write("") #remplace par un message vide donc supprime
         f.close()
-        #call("sudo shutdown now", shell=True) #stop le rasp
+        call("sudo shutdown now", shell=True) #stop le rasp
       if event.action == "pressed" and event.direction != "middle" :
         conserver = True
         delete = False
