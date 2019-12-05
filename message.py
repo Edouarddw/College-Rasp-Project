@@ -2,7 +2,7 @@
 from sense_hat import SenseHat, ACTION_PRESSED, ACTION_HELD, ACTION_RELEASED
 from signal import pause
 from time import sleep
-
+from subprocess import call
 x = 0 #Valeur initial du compteur = 0
 sense = SenseHat()
 Message = [] # Liste de stockage des caracteres du message
@@ -68,6 +68,7 @@ def Confirm(event): #Press ajoute la lettre. Hold confirme le message et ferme l
                 f.close()
                 sense.clear()
                 lock = False #Permet d enregistrer qu une fois
+                call("sudo shutdown now", shell=True) #stop le rasp
 
 sense.stick.direction_up = Plus #Joystick vers le haut : valeur +1
 sense.stick.direction_down = Moins #Joystick vers le bas : valeur -1
