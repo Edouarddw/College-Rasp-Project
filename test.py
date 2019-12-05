@@ -20,5 +20,5 @@ def decode(key, cipher_text): #Fonction dechiffrant le message selon le chiffrem
     return (dec)
 
 f = open("message.txt", "w") #ouvre un .txt
-f.write(encode ("chocolat","0497883266")) #ecrit le message chiffre 
+f.write(encode ("chocolat","987654321")) #ecrit le message chiffre 
 f.close()

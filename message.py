@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from sense_hat import SenseHat, ACTION_PRESSED, ACTION_HELD, ACTION_RELEASED
 from signal import pause
 from time import sleep
@@ -16,7 +17,7 @@ def encode(key, plain_text ): #Fonction chiffrant le message selon le chiffremen
         key_c = key[i % len(key)]
         enc_c = chr((ord(e) + ord(key_c)) % 256)
         enc.append(enc_c)
-    return ("".join(enc))#.encode()).decode() ca fonctionne pas avec ca
+    return ("".join(enc).encode()).decode()
     
 def decode(key, cipher_text): #Fonction dechiffrant le message selon le chiffrement vigenere
     
