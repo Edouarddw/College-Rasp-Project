@@ -28,7 +28,6 @@ def decode(key, cipher_text): #Fonction dechiffrant le message selon le chiffrem
         dec_c = chr((256 + ord(e) - ord(key_c)) % 256)
         dec.append(dec_c)
     dec= str("".join(dec))
-    print(dec)
     return (dec)
 
 
@@ -52,9 +51,11 @@ def Moins(event): #Fonction diminuant la valeur
         x = value(x - 1)
         sense.show_letter(str(x))
 
-def Confirm(event): #Press ajoute la lettre. Hold confirme le message et ferme le programme 
+def Confirm(event): #Press ajoute la lettre. Hold confirme le message 
     global Message
     global lock
+    tourne = True
+    conserver = True
     if event.action != ACTION_PRESSED:
         if lock :
             if event.action == ACTION_RELEASED:
@@ -68,7 +69,32 @@ def Confirm(event): #Press ajoute la lettre. Hold confirme le message et ferme l
                 f.close()
                 sense.clear()
                 lock = False #Permet d enregistrer qu une fois
-                call("sudo shutdown now", shell=True) #stop le rasp
+                
+        elif event.action != ACTION_HELD:
+            sense.show_message("".join(Message),scroll_speed = 0.05) #Montre le message valide
+            sense.show_message("Confirmer?",scroll_speed = 0.05) 
+            while tourne : #tourne temps qu on a pas valide
+                while conserver :
+                    sense.show_letter("V",(0, 255, 0))
+                    for event in sense.stick.get_events(): # Si on valide en appuyant au milieu, le message sera conserve, une autre action proposera le x 
+                        if event.action == 'pressed' and event.direction == "middle":
+                           tourne = False
+                           sense.clear()
+                           call("sudo shutdown now", shell=True) #stop le rasp
+                        if event.action == "pressed" and event.direction != "middle" :
+                           conserver = False
+                           delete = True
+                while delete :
+                    sense.show_letter("X",(255, 0, 0))
+                    for event in sense.stick.get_events(): # Si on valide en appuyant au milieu, on peut remettre un message, une autre action recommencera la boucle 
+                        if event.action == 'pressed' and event.direction == "middle":
+                           lock = True
+                           Message = [] #supprime les caracteres enregistre
+                           sense.show_letter(str(x))
+                           delete = False
+                        if event.action == "pressed" and event.direction != "middle" :
+                           conserver = True
+                           delete = False
 
 sense.stick.direction_up = Plus #Joystick vers le haut : valeur +1
 sense.stick.direction_down = Moins #Joystick vers le bas : valeur -1
