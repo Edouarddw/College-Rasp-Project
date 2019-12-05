@@ -22,14 +22,14 @@ message = f.read() #string message = contenu du doc
 f.close()
 x= decode(key,message)
 while tourne :
-    sense.show_message(decode(key,message)) #montre sur le rasp le message decode
+    sense.show_message(decode(key,message),scroll_speed = 0.05) #montre sur le rasp le message decode
     for event in sense.stick.get_events():
       if event.action == 'pressed':
         sense.clear()
         tourne = False
 tourne = True 
 conserver = True
-sense.show_message("Conserver?")
+sense.show_message("Conserver?",scroll_speed = 0.05)
 while tourne :
   while conserver :
     sense.show_letter("V",(0, 255, 0))
