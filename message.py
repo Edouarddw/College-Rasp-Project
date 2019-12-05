@@ -9,7 +9,7 @@ Message = [] # Liste de stockage des caracteres du message
 key= "chocolat" # Clef du chiffrement vigenere
 sense.low_light = True 
 lock = True #False si un message est deja enregistre
-
+sense.show_letter(str(x)) #affiche le caractere des le debut 
 def encode(key, plain_text ): #Fonction chiffrant le message selon le chiffrement vigenere
     
     enc = []
