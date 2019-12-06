@@ -40,7 +40,11 @@ while tourne :
         if y == 0 and x == 0 and z == 1 :
             action = "Nothing"
             liste_action.append(action)
+<<<<<<< HEAD
         if y == 0 and x == -1 and z == 0 : 
+=======
+            if y == 0 and x == -1 and z == 0 : 
+>>>>>>> bbed5dfc04a1f303cdcc3035cc9c6e35c620d66f
             action = "turnleft"
             liste_action.append(action)
         if y == 0 and x == -1 and z == -1 :
