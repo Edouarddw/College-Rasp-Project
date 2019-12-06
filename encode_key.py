@@ -65,13 +65,13 @@ while tourne :
         s.show_message("Valider?",scroll_speed = 0.05)
         while validation : 
           while conserver :
-              sense.show_letter("V",(0, 255, 0))
-              for event in sense.stick.get_events(): # Si on valide en appuyant au milieu, le message sera conserve, une autre action proposera le x
+              s.show_letter("V",(0, 255, 0))
+              for event in s.stick.get_events(): # Si on valide en appuyant au milieu, le message sera conserve, une autre action proposera le x
                   if event.action == 'released' and event.direction == "middle":
                       tourne = False
                       conserver = False
                       validation = False
-                      sense.clear()
+                      s.clear()
                       f= open("key.txt","w") #ouvre le document message.txt
                       f.write(hashing("".join(liste_action))) #ecrit la clef hashee
                       f.close()
@@ -80,12 +80,12 @@ while tourne :
                       conserver = False
                       delete = True
           while delete :
-              sense.show_letter("X",(255, 0, 0))
-              for event in sense.stick.get_events(): # Si on valide en appuyant au milieu, le message sera supprime, une autre action recommencera la bouche
+              s.show_letter("X",(255, 0, 0))
+              for event in s.stick.get_events(): # Si on valide en appuyant au milieu, le message sera supprime, une autre action recommencera la bouche
                   if event.action == 'released' and event.direction == "middle":
                       delete = False
                       validation = False
-                      sense.clear()
+                      s.clear()
                   if event.action == "released" and event.direction != "middle" :
                       conserver = True
                       delete = False
