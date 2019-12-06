@@ -87,7 +87,7 @@ def Confirm(event): #Press ajoute la lettre. Hold confirme le message
                 while delete :
                     sense.show_letter("X",(255, 0, 0))
                     for event in sense.stick.get_events(): # Si on valide en appuyant au milieu, on peut remettre un message, une autre action recommencera la boucle 
-                        if event.action == 'pressed' and event.direction == "middle":
+                        if event.action == 'released' and event.direction == "middle":
                            lock = True
                            delete = False
                            tourne = False

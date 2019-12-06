@@ -4,7 +4,8 @@ sense = SenseHat()
 sense.clear()
 key= "chocolat" #clef introduite lors de l encodage
 tourne = True # defile jusqu a pression
-    
+sense.low_light = True
+
 def decode(key, cipher_text): #Fonction dechiffrant le message selon le chiffrement vigenere
     
    
