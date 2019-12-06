@@ -35,7 +35,8 @@ while True :
         z = round(s.get_accelerometer_raw()["z"])
         if y == 0 and x == 0 and z == 1 :
             action = "Nothing"
-        if y == 0 and x == -1 and z == 0 : 
+            liste_action.append(action)
+            if y == 0 and x == -1 and z == 0 : 
             action = "turnleft"
             liste_action.append(action)
         if y == 0 and x == -1 and z == -1 :
