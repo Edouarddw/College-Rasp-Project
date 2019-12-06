@@ -25,11 +25,11 @@ def hashing(string): #fonction hachant la clef
 
 liste_action = [] #liste de stockage des positions dans l espace
 action = 0
-sense.show_message("Encode",scroll_speed = 0.05)
+s.show_message("Encode",scroll_speed = 0.05)
 while True :
-    sense.show_letter(len(liste_action)) #affiche a l ecran le nombre de positions deja enregistrees
+    s.show_letter(str(len(liste_action)))
     event = s.stick.wait_for_event()
-    if event.action == "pressed" and event.direction == "middle" : #pression sur le joystick pour ajouter une position
+    if event.action == "released" and event.direction == "middle" : #pression sur le joystick pour ajouter une position
         x = round(s.get_accelerometer_raw()["x"])
         y = round(s.get_accelerometer_raw()["y"])
         z = round(s.get_accelerometer_raw()["z"])
@@ -57,6 +57,7 @@ while True :
             action = "flipbackward"
             liste_action.append(action) 
     if event.action == "held" and event.direction == "middle" :
+        print ("".join(liste_action))
         break
 
 f = open("key.txt", "w") #ouvre un .txt
