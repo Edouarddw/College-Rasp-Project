@@ -1,22 +1,8 @@
 
 def hashing(string):
-    """
-    Hachage d'une chaîne de caractères fournie en paramètre.
-    Le résultat est une chaîne de caractères.
-    Attention : cette technique de hachage n'est pas suffisante (hachage dit cryptographique) pour une utilisation en dehors du cours.
 
-    :param (str) string: la chaîne de caractères à hacher
-    :return (str): le résultat du hachage
-    """
     def to_32(value):
-        """
-        Fonction interne utilisée par hashing.
-        Convertit une valeur en un entier signé de 32 bits.
-        Si 'value' est un entier plus grand que 2 ** 31, il sera tronqué.
 
-        :param (int) value: valeur du caractère transformé par la valeur de hachage de cette itération
-        :return (int): entier signé de 32 bits représentant 'value'
-        """
         value = value % (2 ** 32)
         if value >= 2**31:
             value = value - 2 ** 32
@@ -41,7 +27,7 @@ cle_pour_dechiffrer =[]
 b = hashing(str(cle_pour_dechiffrer))
 
 if b == a:
-    with open("message.txt", 'r') as f:
+    with open("key.txt", 'r') as f:
         print(f.read())
         sense.show_message(f.read())
 
