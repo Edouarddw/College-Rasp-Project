@@ -89,9 +89,10 @@ def Confirm(event): #Press ajoute la lettre. Hold confirme le message
                     for event in sense.stick.get_events(): # Si on valide en appuyant au milieu, on peut remettre un message, une autre action recommencera la boucle 
                         if event.action == 'pressed' and event.direction == "middle":
                            lock = True
+                           delete = False
+                           tourne = False
                            Message = [] #supprime les caracteres enregistre
                            sense.show_letter(str(x))
-                           delete = False
                         if event.action == "pressed" and event.direction != "middle" :
                            conserver = True
                            delete = False
@@ -101,4 +102,4 @@ sense.stick.direction_down = Moins #Joystick vers le bas : valeur -1
 sense.stick.direction_left = Moins #Joystick vers la gauche : chiffrement et .txt
 sense.stick.direction_right = Plus #Joystick vers la droite : valeur +1
 sense.stick.direction_middle = Confirm #press ajout au message hold confirmer
-pause()
+pause() 
