@@ -33,6 +33,8 @@ while True :
         x = round(s.get_accelerometer_raw()["x"])
         y = round(s.get_accelerometer_raw()["y"])
         z = round(s.get_accelerometer_raw()["z"])
+        if y == 0 and x == 0 and z == 1 :
+            action = "Nothing"
         if y == 0 and x == -1 and z == 0 : 
             action = "turnleft"
             liste_action.append(action)
@@ -55,7 +57,6 @@ while True :
             action = "flipbackward"
             liste_action.append(action) 
     if event.action == "held" and event.direction == "middle" :
-        
         break
 
 f = open("key.txt", "w") #ouvre un .txt
