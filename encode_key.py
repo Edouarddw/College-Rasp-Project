@@ -3,7 +3,7 @@ from sense_hat import SenseHat
 s = SenseHat()
 s.low_light = True
 
-def hashing(string):
+def hashing(string): #fonction hachant la clef
     
     def to_32(value):
         value = value % (2 ** 32)
@@ -23,12 +23,13 @@ def hashing(string):
         return str(x)
     return ""
 
-liste_action = []
+liste_action = [] #liste de stockage des positions dans l espace
 action = 0
-
+sense.show_message("Encode",scroll_speed = 0.05)
 while True :
+    sense.show_letter(len(liste_action)) #affiche a l ecran le nombre de positions deja enregistrees
     event = s.stick.wait_for_event()
-    if event.action == "pressed" and event.direction == "middle" :
+    if event.action == "pressed" and event.direction == "middle" : #pression sur le joystick pour ajouter une position
         x = round(s.get_accelerometer_raw()["x"])
         y = round(s.get_accelerometer_raw()["y"])
         z = round(s.get_accelerometer_raw()["z"])
@@ -54,7 +55,9 @@ while True :
             action = "flipbackward"
             liste_action.append(action) 
     if event.action == "held" and event.direction == "middle" :
+        
         break
 
-key = hashing("".join(liste_action))
-    
+f = open("key.txt", "w") #ouvre un .txt
+f.write(hashing("".join(liste_action))) #ecrit la clef hashee
+f.close()
