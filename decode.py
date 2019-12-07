@@ -38,6 +38,7 @@ while tourne :
     for event in sense.stick.get_events(): # Si on valide en appuyant au milieu, le message sera conserve, une autre action proposera le x 
       if event.action == 'pressed' and event.direction == "middle":
         tourne = False
+        conserver = False
         sense.clear()
         call("sudo shutdown now", shell=True) #stop le rasp
       if event.action == "pressed" and event.direction != "middle" :
