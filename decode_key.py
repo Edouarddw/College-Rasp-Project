@@ -32,12 +32,12 @@ a = f.read() # on definit la premiere variable a comme premier hash a comparer
 f.close()
 #debut du code python qui va demander la cle permettant de dechiffrer le message
 
-liste_action = [] #liste de stockage des positions dans l espace
-action = 0
 sense.show_message("Decode",scroll_speed = 0.05)
 tourne = True
 ok = True # Permet de reessayer si le code est errone
 while ok :
+    action = 0
+    liste_action = [] #liste de stockage des positions dans l espace
     while tourne :
         sense.show_letter(str(len(liste_action)))
         event = sense.stick.wait_for_event()
@@ -111,16 +111,19 @@ while ok :
         f.write("I") #ajoute un strike
         f.close()
         sense.show_message("FAUX",scroll_speed = 0.05, text_colour = (255, 0, 0))
+        tourne = True 
     f= open("fail.txt","r") #ouvre le document message.txt
     strike = f.read() #string strike = nombre d echecs
     f.close()
     if strike == "II":
-        sense.show_message("Dernière chance",scroll_speed = 0.05, text_colour = (255, 0, 0))
+        sense.show_message("Derniere chance",scroll_speed = 0.05, text_colour = (255, 0, 0))
     if strike == "III" : # Si le compteur atteint 3, suppression du message secret
         f= open("message.txt","w") #ouvre le document message.txt
         f.write("") #remplace par un message vide donc supprime
         f.close()
         sense.clear(255,0 , 0)
-        time.sleep(2)
         sense.clear()
+        f= open("fail.txt","w") #ouvre le document fail.txt
+        f.write("") #remets le conteur a 0
+        f.close()
         call("sudo shutdown now", shell=True)
