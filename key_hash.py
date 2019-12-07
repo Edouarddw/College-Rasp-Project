@@ -1,3 +1,5 @@
+import encode_key
+
 
 def hashing(string):
 
@@ -20,14 +22,16 @@ def hashing(string):
         return str(x)
     return ""
 
-cle_pour_chiffrer = []
-a = hashing(str(cle_pour_chiffrer))
+cle_pour_chiffrer = encode_key.liste_action  #la suite de mouvements qui notre clé pour encoder le message
+a = hashing(str(cle_pour_chiffrer)) #on hash cette clé
 
-cle_pour_dechiffrer =[]
-b = hashing(str(cle_pour_dechiffrer))
+#il faut un code pour permettre de rentrer la clé et la stocker dans la liste juste en dessous
 
-if b == a:
-    with open("key.txt", 'r') as f:
-        print(f.read())
-        sense.show_message(f.read())
+cle_pour_dechiffrer =[] # clé pour essayer d'ouvrir le message
+b = hashing(str(cle_pour_dechiffrer)) # on hash cette clé aussi
+
+if b == a: #on compare les deux hash, si ils sont egaux(clé la meme) alors on ouvre le 'message.txt' et on l'affiche
+    with open("message.txt", 'r') as f:
+        print(f.read()) #affiche le message sur la console
+        sense.show_message(f.read()) #affiche le message sur le senseHat
 
