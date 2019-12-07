@@ -30,6 +30,7 @@ while tourne :
         tourne = False
 tourne = True 
 conserver = True
+sup = True 
 sense.show_message("Conserver?",scroll_speed = 0.05)
 while tourne :
   while conserver :
@@ -45,13 +46,36 @@ while tourne :
   while delete :
     sense.show_letter("X",(255, 0, 0))
     for event in sense.stick.get_events(): # Si on valide en appuyant au milieu, le message sera supprime, une autre action recommencera la bouche 
-      if event.action == 'pressed' and event.direction == "middle":
-        tourne = False
-        sense.clear()
-        f= open("message.txt","w") #ouvre le document message.txt
-        f.write("") #remplace par un message vide donc supprime
-        f.close()
-        call("sudo shutdown now", shell=True) #stop le rasp
+      if event.action == 'released' and event.direction == "middle":
+          #permet de choisir entre enregistrer un a nouveau clef et message ou non si non, eteint le rasp
+          sense.show_message("Nouveau?",scroll_speed = 0.05)
+          while tourne :
+                  while conserver :
+                      sense.show_letter("V",(0, 255, 0))
+                      for event in sense.stick.get_events(): # Si on valide en appuyant au milieu, le message sera conserve, une autre action proposera le x
+                          if event.action == 'pressed' and event.direction == "middle":
+                              tourne = False
+                              conserver = False 
+                              sense.clear()
+                              call("python3 encode_key.py", shell=True) #lance l encodage d une nouvelle clef
+                          if event.action == "pressed" and event.direction != "middle" :
+                              conserver = False
+                              sup = True
+                  while sup :
+                      sense.show_letter("X",(255, 0, 0))
+                      for event in sense.stick.get_events(): # Si on valide en appuyant au milieu, le message sera supprime, une autre action recommencera la bouche
+                          if event.action == 'pressed' and event.direction == "middle":
+                              sup = False
+                              delete = False
+                              tourne = False
+                              f= open("message.txt","w") #ouvre le document message.txt
+                              f.write("") #remplace par un message vide donc supprime
+                              f.close()
+                              sense.clear()
+                              call("sudo shutdown now", shell=True) #stop le rasp
+                          if event.action == "pressed" and event.direction != "middle" :
+                              sup = False
+                              conserver = True
       if event.action == "pressed" and event.direction != "middle" :
         conserver = True
         delete = False
