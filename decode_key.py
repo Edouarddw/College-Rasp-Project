@@ -116,7 +116,11 @@ while ok :
     f.close()
     if strike == "II":
         sense.show_message("Dernière chance",scroll_speed = 0.05, text_colour = (255, 0, 0))
-    if strike == "III" : # Si le compteur atteint 3, suppression du message secret 
+    if strike == "III" : # Si le compteur atteint 3, suppression du message secret
         f= open("message.txt","w") #ouvre le document message.txt
         f.write("") #remplace par un message vide donc supprime
         f.close()
+        sense.clear(255,0 , 0)
+        time.sleep(2)
+        sense.clear()
+        call("sudo shutdown now", shell=True)
