@@ -1,16 +1,8 @@
 Réalisables maintenant: 
-
-- Dissimulation de l'utilité réelle. responsable: ? status : idée de how to : Quand demo.py se lance automatiquement, il y a d'abord une interface comme celle ci (https://www.deviceplus.com/how-tos/raspberrypi-guide/the-sense-hat-add-on-board-for-raspberry-pi-joystick/). où une pression sur le joystick laisse le pixel allumé ou l'éteint. c'est dans un while true qui se break si on place le/les pixels au bon endroit et qu'on confirme grace à une augmentation de température ( humidity ? ) en soufflant dessus 
-
-- 
-
-
-En attente de la cloture du programme de base: 
-
-- Suppression du message après multiples erreur. responsable : Edouard. status : strike.py doit être implémenté.
+- kill switch : Lors du jeu, dessin 2 qui supprimerait tout les fichiers du programme. Responsable: ? status : idée facile à implémenter (+ validation souffle froid )
 - Possibilité de sécuriser le code de manière complexe ou rapide. Responsable: ? status : idée de how to : dans demo.py, s'il n'y a pas de clé, demande de choisir entre "rapide" ou "secure", lance le .py correspondant ( encode_key si rapide) s'il y a un message verifier à l'aide d'un .txt si le message a été encodé en "rapide" ou "secure". et lance le .py de décodage correspondant. IL FAUT RAJOUTER DES ETAPES POUR POUVOIR AVOIR UN DECODAGE SECURE
-   idées d'étapes : - Placer un ou plusieurs pixels au bon endroit
-                    - Images aléatoire et action à effectuer en fct de l'image ( ne doit pas être effectué lors de l'encodage 
+   idées d'étapes : - Placer un ou plusieurs pixels au bon endroit ( code disponible dans demo.py ) 
+                    - Images aléatoire et action à effectuer en fct de l'image ( ne doit pas être effectué lors de l'encodage )
                     - ... ? 
 
 
@@ -18,3 +10,5 @@ Déjà implémenté :
 - Totalement fonctionnel sans internet
 - retour visuel lors de la confirmation 
 - possibilité de recommencer si le message/la clé a été mal introduite
+- Dissimulation de l'utilité réelle (+ Utilisation capteur chaleur ) 
+- Suppression du message après multiples erreur.
