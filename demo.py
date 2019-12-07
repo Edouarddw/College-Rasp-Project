@@ -6,5 +6,5 @@ f.close()
 
 if message == "" :
     call("python3 encode_key.py", shell=True) # Permet de rentrer la clef
-#else :
-    #call("python3 decode_key.py", shell=True) # Demande la clef
+else :
+    call("python3 decode_key.py", shell=True) # Demande la clef
