@@ -29,7 +29,7 @@ def hashing(string):
 
 f= open("key.txt","r") # on cherche le hash de la clé d'encodage
 a = f.read() # on definit la premiere variable a comme premier hash à comparer
-
+f.close()
 #debut du code python qui va demander la clé permettant de dechiffrer le message
 
 liste_action = [] #liste de stockage des positions dans l espace
@@ -102,11 +102,13 @@ while tourne :
 
 
 f= open("key.txt","r") # on cherche le hash de la clé d'encodage
-b = f.read() # on definit la deuxieme variable b comme deuxieme hash à comparer
-
+b = f.readlines()[1] # on definit la deuxieme variable b comme deuxieme hash à comparer
+f.close()
 
 if b == a: #on compare les deux hash, si ils sont egaux(clé la meme) alors on ouvre le 'message.txt' et on l'affiche
     with open("message.txt", 'r') as f:
         print(f.read()) #affiche le message sur la console
         sense.show_message(f.read()) #affiche le message sur le senseHat
-
+    f = open("key.txt", "w")  #on reinitialise le fichier qui contient la clé
+    f.write("")
+    f.close()
