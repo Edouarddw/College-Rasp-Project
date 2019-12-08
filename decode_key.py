@@ -1,5 +1,6 @@
 from sense_hat import SenseHat
 from subprocess import call
+import module
 
 sense = SenseHat()
 sense.low_light = True
@@ -71,34 +72,13 @@ while ok :
                 liste_action.append(action)
         if event.action == "held" and event.direction == "middle" :
             sense.show_message("Valider?",scroll_speed = 0.05)
-            conserver = True
-            validation = True
-            delete = False
-            while validation :
-                while conserver :
-                    sense.show_letter("V",(0, 255, 0))
-                    for event in sense.stick.get_events(): # Si on valide en appuyant au milieu, le message sera conserve, une autre action proposera le x
-                        if event.action == 'pressed' and event.direction == "middle":
-                            tourne = False
-                            conserver = False
-                            validation = False
-                            sense.clear()
-                            b = hashing("".join(liste_action))
-                        if event.action == "pressed" and event.direction != "middle" :
-                            conserver = False
-                            delete = True
-                while delete :
-                    sense.show_letter("X",(255, 0, 0))
-                    for event in sense.stick.get_events(): # Si on valide en appuyant au milieu, le message sera supprime, une autre action recommencera la bouche
-                        if event.action == 'pressed' and event.direction == "middle":
-                            delete = False
-                            validation = False
-                            sense.clear()
-                            liste_action = []
-                        if event.action == "pressed" and event.direction != "middle" :
-                            conserver = True
-                            delete = False
-
+            v = module.vx() #VX est le return du choix entre V ou X
+            if v :
+                b = hashing("".join(liste_action)) # Si V alors la clef est conservee/hashee
+                tourne = False # sors de la boucle qui permet d'entrer da clef 
+            else :
+                liste_action = [] # Si X, remets la liste a 0 et relance la boucle de selection
+                for event in sense.stick.get_events(): pass #reinitialise le compteur d actions
 
     if b == a: # Si les deux hash sont similaires, on remet le compteur d echec a 0 et on lance le decodage
         ok = False
@@ -123,6 +103,7 @@ while ok :
         f= open("message.txt","w") #ouvre le document message.txt
         f.write("") #remplace par un message vide donc supprime
         f.close()
+        print ("a")
         sense.clear(255,0 , 0)
         f= open("fail.txt","w") #ouvre le document fail.txt
         f.write("") #remets le conteur a 0
