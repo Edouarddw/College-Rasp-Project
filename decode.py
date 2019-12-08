@@ -80,3 +80,4 @@ while tourne :
       if event.action == "pressed" and event.direction != "middle" :
         conserver = True
         delete = False
+sense.clear()
