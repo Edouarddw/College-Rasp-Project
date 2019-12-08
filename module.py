@@ -23,6 +23,7 @@ def vx() :
                 if event.action == 'released' and event.direction == "middle":
                     delete = False
                     tourne = False
+                    sense.clear()
                     return False
                 if event.action == "pressed" and event.direction != "middle" :
                     conserver = True
