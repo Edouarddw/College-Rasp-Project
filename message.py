@@ -3,6 +3,7 @@ from sense_hat import SenseHat, ACTION_PRESSED, ACTION_HELD, ACTION_RELEASED
 from signal import pause
 from time import sleep
 from subprocess import call
+import module
 x = 0 #Valeur initial du compteur = 0
 sense = SenseHat()
 Message = [] # Liste de stockage des caracteres du message
@@ -55,8 +56,6 @@ def Moins(event): #Fonction diminuant la valeur
 def Confirm(event): #Press ajoute la lettre. Hold confirme le message 
     global Message
     global lock
-    tourne = True
-    conserver = True
     if event.action != ACTION_PRESSED:
         if lock :
             if event.action == ACTION_RELEASED:
@@ -73,30 +72,14 @@ def Confirm(event): #Press ajoute la lettre. Hold confirme le message
                 
         elif event.action != ACTION_HELD:
             sense.show_message("".join(Message),scroll_speed = 0.05) #Montre le message valide
-            sense.show_message("Confirmer?",scroll_speed = 0.05) 
-            while tourne : #tourne temps qu on a pas valide
-                while conserver :
-                    sense.show_letter("V",(0, 255, 0))
-                    for event in sense.stick.get_events(): # Si on valide en appuyant au milieu, le message sera conserve, une autre action proposera le x 
-                        if event.action == 'pressed' and event.direction == "middle":
-                           conserver = False
-                           sense.clear()
-                           call("sudo shutdown now", shell=True) #stop le rasp
-                        if event.action == "pressed" and event.direction != "middle" :
-                           conserver = False
-                           delete = True
-                while delete :
-                    sense.show_letter("X",(255, 0, 0))
-                    for event in sense.stick.get_events(): # Si on valide en appuyant au milieu, on peut remettre un message, une autre action recommencera la boucle 
-                        if event.action == 'released' and event.direction == "middle":
-                           lock = True
-                           delete = False
-                           tourne = False
-                           Message = [] #supprime les caracteres enregistre
-                           sense.show_letter(str(x))
-                        if event.action == "pressed" and event.direction != "middle" :
-                           conserver = True
-                           delete = False
+            sense.show_message("Confirmer?",scroll_speed = 0.05)
+            a = module.vx() #VX est le return du choix entre V ou X
+            if a : call("sudo shutdown now", shell=True) #stop le rasp
+            else : 
+                lock = True
+                Message = [] #supprime les caracteres enregistre
+                sense.show_letter(str(x))
+                for event in sense.stick.get_events(): pass #reinitialise le compteur d actions
 
 sense.stick.direction_up = Plus #Joystick vers le haut : valeur +1
 sense.stick.direction_down = Moins #Joystick vers le bas : valeur -1
