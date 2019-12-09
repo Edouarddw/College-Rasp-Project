@@ -12,3 +12,5 @@ Déjà implémenté :
 - possibilité de recommencer si le message/la clé a été mal introduite
 - Dissimulation de l'utilité réelle (+ Utilisation capteur chaleur ) 
 - Suppression du message après multiples erreur.
+
+LpynHQ78
