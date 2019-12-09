@@ -49,7 +49,7 @@ while ok :
             
     sense.clear()
     sequence = module.secure_pixels()
-    if sequence.count("0") != 64 :
+    if sequence.count("0") != 192 :
         b += hashing(sequence)
 
     if b == a: # Si les deux hash sont similaires, on remet le compteur d echec a 0 et on lance le decodage
