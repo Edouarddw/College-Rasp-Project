@@ -1,8 +1,5 @@
-#!/usr/bin/env python3
-#deviendra demo.py
 from sense_hat import SenseHat
 import time
-from subprocess import call
 
 sense = SenseHat()
 sense.low_light = True
@@ -14,15 +11,6 @@ red = (255, 0, 0)
 white = (255,255,255)
 nothing = (0,0,0)
 list_color = [green,yellow,blue,red,nothing]
-
-dessin = [[0, 0, 0], [0, 0, 248], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
-[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
-[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
-[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [248, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
-[248, 252, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
-[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 252, 0], [248, 252, 0], \
-[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
-[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
 
 pro = True
 color = 0
@@ -114,36 +102,3 @@ while pro == True :
         
     if sense.get_pixel(previous_x,previous_y) == [248, 252, 248] : #verifie si la position precedente est blanche,si oui, efface
         sense.set_pixel(previous_x,previous_y,0,0,0)
-        
-    if event.direction == "up" and event.action == "held" : #quand validation
-        sense.set_pixel(x,y,nothing) #efface le curseur
-        
-        if sense.get_pixels() == dessin : #verifie si correspond au dessin secret
-            pro = False
-            while True :
-                ideal_temp = 30
-                event = sense.stick.wait_for_event() #attends le pressed
-                temp = sense.get_temperature() # quand pressed, prend la t.
-                
-                while event.action == "held" and event.direction == "middle" :
-                    #temps que le joystick est pressé prend une deuxieme t.
-                    tempb = sense.get_temperature()
-                    
-                    if tempb > temp + 0.3 : #si la t augmente, affiche du rouge 
-                        sense.clear(255, 0, 0)
-                        time.sleep(2)
-                        sense.clear()
-                        #Verifie s il y a un message enregistre, si oui lance le .py pour rentrer le mdp. S il n y en a pas lance message.py pour en rentrer un.
-                        f= open("message.txt","r") #ouvre le document message.txt
-                        message = f.read() #string message = contenu du doc
-                        f.close()
-
-                        if message == "" :
-                            call("python3 encode_key.py", shell=True) # Permet de rentrer la clef
-                        #else :
-                            #call("python3 decode_key.py", shell=True) # Demande la clef
-                            
-                    if temp > tempb + 0.5 : #si la t diminue affiche du bleu
-                        sense.clear(0,0,255)
-                        time.sleep(2)
-                        sense.clear()

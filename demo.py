@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-#deviendra demo.py
 from sense_hat import SenseHat
 import time
 from subprocess import call
@@ -22,6 +21,15 @@ dessin = [[0, 0, 0], [0, 0, 248], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0
 [248, 252, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
 [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 252, 0], [248, 252, 0], \
 [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
+[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
+
+dessin2 = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
+[0, 0, 0], [255, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [255, 0, 0], [0, 0, 0], \
+[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
+[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
+[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
+[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
+[0, 0, 0], [255, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [255, 0, 0], [0, 0, 0], \
 [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
 
 pro = True
@@ -142,7 +150,20 @@ while pro == True :
                         else :
                             call("python3 decode_key.py", shell=True) # Demande la clef
                             
-                   # if temp > tempb + 0.5 : #si la t diminue affiche du bleu
-                   #     sense.clear(0,0,255)
-                   #     time.sleep(2)
-                   #     sense.clear()
+                            
+        if sense.get_pixels() == dessin2 : #verifie si correspond au dessin secret /!\ kill switch
+            pro = False
+            while True :
+                event = sense.stick.wait_for_event() #attends le pressed
+                temp = sense.get_temperature() # quand pressed, prend la t.
+                
+                while event.action == "held" and event.direction == "up" : 
+                    #temps que le joystick est pressé prend une deuxieme t.
+                    tempb = sense.get_temperature()
+                    if temp > tempb + 0.5 : #si la t diminue supprime l'integralite des fichiers du programme
+                        sense.clear(255,0,0)
+                        call("rm demo.py encode_key.py message.py message.txt decode.py decode_key.py key.txt fail.txt module.py", shell=True) # supprime l integralite des fichiers
+                        call("mw jeu.py demo.py", shell=True) #renome jeu.py pour que l'interface de jeu soit disponible au lancement sans les fonctions cachees
+                        call("sudo shutdown now", shell=True) #eteint le rasp
+                        sense.clear()
+                        
