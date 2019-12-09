@@ -25,6 +25,7 @@ def hashing(string): #fonction hachant la clef
             x = -2
         return str(x)
     return ""
+sense.show_message("Encode:",scroll_speed = 0.05)
 while tourne :
     encode = module.key()
     sense.show_message("Valider?",scroll_speed = 0.05)

@@ -24,12 +24,12 @@ dessin = [[0, 0, 0], [0, 0, 248], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0
 [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
 
 dessin2 = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
-[0, 0, 0], [255, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [255, 0, 0], [0, 0, 0], \
+[0, 0, 0], [248, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [248, 0, 0], [0, 0, 0], \
 [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
 [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
 [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
 [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
-[0, 0, 0], [255, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [255, 0, 0], [0, 0, 0], \
+[0, 0, 0], [248, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [248, 0, 0], [0, 0, 0], \
 [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
 
 pro = True
@@ -137,21 +137,20 @@ while pro == True :
                     tempb = sense.get_temperature()
                     
                     if tempb > temp + 0.3 : #si la t augmente, affiche du rouge 
-                        sense.clear(255, 0, 0)
+                        sense.clear(0, 255, 0)
                         time.sleep(2)
                         sense.clear()
                         #Verifie s il y a un message enregistre, si oui lance le .py pour rentrer le mdp. S il n y en a pas lance message.py pour en rentrer un.
                         f= open("message.txt","r") #ouvre le document message.txt
                         message = f.read() #string message = contenu du doc
                         f.close()
-
                         if message == "" :
                             call("python3 encode_key.py", shell=True) # Permet de rentrer la clef
                         else :
                             call("python3 decode_key.py", shell=True) # Demande la clef
                             
                             
-        if sense.get_pixels() == dessin2 : #verifie si correspond au dessin secret /!\ kill switch
+        elif sense.get_pixels() == dessin2 : #verifie si correspond au dessin secret /!\ kill switch
             pro = False
             while True :
                 event = sense.stick.wait_for_event() #attends le pressed
@@ -160,10 +159,8 @@ while pro == True :
                 while event.action == "held" and event.direction == "up" : 
                     #temps que le joystick est pressé prend une deuxieme t.
                     tempb = sense.get_temperature()
-                    if temp > tempb + 0.5 : #si la t diminue supprime l'integralite des fichiers du programme
+                    if temp > tempb + 0.8 : #si la t diminue supprime l'integralite des fichiers du programme
                         sense.clear(255,0,0)
                         call("rm demo.py encode_key.py message.py message.txt decode.py decode_key.py key.txt fail.txt module.py", shell=True) # supprime l integralite des fichiers
-                        call("mw jeu.py demo.py", shell=True) #renome jeu.py pour que l'interface de jeu soit disponible au lancement sans les fonctions cachees
                         call("sudo shutdown now", shell=True) #eteint le rasp
-                        sense.clear()
                         

@@ -74,7 +74,9 @@ def Confirm(event): #Press ajoute la lettre. Hold confirme le message
             sense.show_message("".join(Message),scroll_speed = 0.05) #Montre le message valide
             sense.show_message("Confirmer?",scroll_speed = 0.05)
             a = module.vx() #VX est le return du choix entre V ou X
-            if a : call("sudo shutdown now", shell=True) #stop le rasp
+            if a :
+                call("sudo shutdown now", shell=True) #stop le rasp
+                sleep (2)
             else : 
                 lock = True
                 Message = [] #supprime les caracteres enregistre
