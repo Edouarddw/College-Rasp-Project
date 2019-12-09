@@ -44,7 +44,7 @@ while tourne :
 
 if security == True :
     sense.clear()
-    sequence = module.secure_pixel()
+    sequence = module.secure_pixels()
     f= open("key.txt","a") #ouvre le document message.txt
     f.write(hashing(sequence)) #ecrit la clef hashee
     f.close()
