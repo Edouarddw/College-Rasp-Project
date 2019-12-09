@@ -70,7 +70,6 @@ while ok :
         f= open("message.txt","w") #ouvre le document message.txt
         f.write("") #remplace par un message vide donc supprime
         f.close()
-        print ("a")
         sense.clear(255,0 , 0)
         f= open("fail.txt","w") #ouvre le document fail.txt
         f.write("") #remets le conteur a 0
