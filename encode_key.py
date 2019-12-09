@@ -37,8 +37,6 @@ while tourne :
         f= open("key.txt","w") #ouvre le document message.txt
         f.write(hashing("".join(encode))) #ecrit la clef hashee
         f.close()
-        call("python3 message.py", shell=True) #lance message.py
-            
     else :
         for event in sense.stick.get_events(): pass #reinitialise le compteur d actions
 
@@ -48,4 +46,6 @@ if security == True :
     f= open("key.txt","a") #ouvre le document message.txt
     f.write(hashing(sequence)) #ecrit la clef hashee
     f.close()
+    call("python3 message.py", shell=True) #lance message.py
+else :
     call("python3 message.py", shell=True) #lance message.py
