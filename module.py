@@ -28,3 +28,39 @@ def vx() :
                 if event.action == "pressed" and event.direction != "middle" :
                     conserver = True
                     delete = False
+def key() :
+    liste_action = [] #liste de stockage des positions dans l espace
+    action = 0
+    tourne = True
+    while tourne :
+        sense.show_letter(str(len(liste_action)))
+        event = sense.stick.wait_for_event()
+        if event.action == "pressed" and event.direction == "middle" : #pression sur le joystick pour ajouter une position
+            x = round(sense.get_accelerometer_raw()["x"])
+            y = round(sense.get_accelerometer_raw()["y"])
+            z = round(sense.get_accelerometer_raw()["z"])
+            if y == 0 and x == 0 and z == 1 :
+                action = "Nothing"
+                liste_action.append(action)
+            if y == 0 and x == -1 and z == 0 :
+                action = "turnleft"
+                liste_action.append(action)
+            if y == 0 and x == -1 and z == -1 :
+                action = "flipleft"
+                liste_action.append(action)
+            if y == 0 and x == 1 and z == 0 :
+                action = "turnright"
+                liste_action.append(action)
+            if y == 0 and x == 1 and z == -1 :
+                action = "flipright"
+                liste_action.append(action)
+            if y == 1 and x == 0 and z == 0 :
+                action = "turnbackward"
+                liste_action.append(action)
+            if y == -1 and x == 0 and z == 0 :
+                action = "turnforward"
+                liste_action.append(action)
+            if y == 0 and x == 0 and z == -1 :
+                action = "flipbackward"
+                liste_action.append(action) 
+        if event.action == "held" and event.direction == "middle" : return liste_action

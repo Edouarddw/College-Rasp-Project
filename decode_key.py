@@ -37,48 +37,15 @@ sense.show_message("Decode",scroll_speed = 0.05)
 tourne = True
 ok = True # Permet de reessayer si le code est errone
 while ok :
-    action = 0
-    liste_action = [] #liste de stockage des positions dans l espace
     while tourne :
-        sense.show_letter(str(len(liste_action)))
-        event = sense.stick.wait_for_event()
-        if event.action == "pressed" and event.direction == "middle" : #pression sur le joystick pour ajouter une position
-            x = round(sense.get_accelerometer_raw()["x"])
-            y = round(sense.get_accelerometer_raw()["y"])
-            z = round(sense.get_accelerometer_raw()["z"])
-            if y == 0 and x == 0 and z == 1 :
-                action = "Nothing"
-                liste_action.append(action)
-            if y == 0 and x == -1 and z == 0 :
-                action = "turnleft"
-                liste_action.append(action)
-            if y == 0 and x == -1 and z == -1 :
-                action = "flipleft"
-                liste_action.append(action)
-            if y == 0 and x == 1 and z == 0 :
-                action = "turnright"
-                liste_action.append(action)
-            if y == 0 and x == 1 and z == -1 :
-                action = "flipright"
-                liste_action.append(action)
-            if y == 1 and x == 0 and z == 0 :
-                action = "turnbackward"
-                liste_action.append(action)
-            if y == -1 and x == 0 and z == 0 :
-                action = "turnforward"
-                liste_action.append(action)
-            if y == 0 and x == 0 and z == -1 :
-                action = "flipbackward"
-                liste_action.append(action)
-        if event.action == "held" and event.direction == "middle" :
-            sense.show_message("Valider?",scroll_speed = 0.05)
-            v = module.vx() #VX est le return du choix entre V ou X
-            if v :
-                b = hashing("".join(liste_action)) # Si V alors la clef est conservee/hashee
-                tourne = False # sors de la boucle qui permet d'entrer da clef 
-            else :
-                liste_action = [] # Si X, remets la liste a 0 et relance la boucle de selection
-                for event in sense.stick.get_events(): pass #reinitialise le compteur d actions
+        decode = module.key()
+        sense.show_message("Valider?",scroll_speed = 0.05)
+        v = module.vx() #VX est le return du choix entre V ou X
+        if v :
+            b = hashing("".join(decode)) # Si V alors la clef est conservee/hashee
+            tourne = False # sors de la boucle qui permet d'entrer da clef 
+        else :
+            for event in sense.stick.get_events(): pass #reinitialise le compteur d actions
 
     if b == a: # Si les deux hash sont similaires, on remet le compteur d echec a 0 et on lance le decodage
         ok = False
