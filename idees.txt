@@ -1,5 +1,4 @@
 Réalisables maintenant: 
-- kill switch : Lors du jeu, dessin 2 qui supprimerait tout les fichiers du programme. Responsable: ? status : idée facile à implémenter (+ validation souffle froid )
 - Possibilité de sécuriser le code de manière complexe ou rapide. Responsable: ? status : idée de how to : dans demo.py, s'il n'y a pas de clé, demande de choisir entre "rapide" ou "secure", lance le .py correspondant ( encode_key si rapide) s'il y a un message verifier à l'aide d'un .txt si le message a été encodé en "rapide" ou "secure". et lance le .py de décodage correspondant. IL FAUT RAJOUTER DES ETAPES POUR POUVOIR AVOIR UN DECODAGE SECURE
    idées d'étapes : - Placer un ou plusieurs pixels au bon endroit ( code disponible dans demo.py ) 
                     - Images aléatoire et action à effectuer en fct de l'image ( ne doit pas être effectué lors de l'encodage )
@@ -7,6 +6,7 @@ Réalisables maintenant:
 
 
 Déjà implémenté : 
+- Kill switch 
 - Totalement fonctionnel sans internet
 - retour visuel lors de la confirmation 
 - possibilité de recommencer si le message/la clé a été mal introduite
