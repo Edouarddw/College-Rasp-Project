@@ -129,31 +129,27 @@ while pro == True :
         
     if event.direction == "up" and event.action == "held" : #quand validation
         sense.set_pixel(x,y,nothing) #efface le curseur
+        temp = sense.get_temperature() # quand pressed, prend la t.
      
         if sense.get_pixels() == dessin : #verifie si correspond au dessin secret
-            while tourne :
-                event = sense.stick.wait_for_event() #attends le pressed
-                temp = sense.get_temperature() # quand pressed, prend la t.
-                
-                while event.action == "held" and event.direction == "up" :
-                    #temps que le joystick est presse prend une deuxieme t.
-                    tempb = sense.get_temperature()
-                    tempc = sense.get_temperature_from_pressure()
-                    if tempb > temp + 0.3 or tempc > temp + 0.3: #si la t augmente, affiche du rouge
-                        pro = False
-                        tourne = False
-                        sense.clear(0, 255, 0)
-                        time.sleep(2)
-                        sense.clear()
-                        #Verifie s il y a un message enregistre, si oui lance le .py pour rentrer le mdp. S il n y en a pas lance message.py pour en rentrer un.
-                        f= open("message.txt","r") #ouvre le document message.txt
-                        message = f.read() #string message = contenu du doc
-                        f.close()
-                        if message == "" :
-                            call("python3 encode_key.py", shell=True) # Permet de rentrer la clef
-                        else :
-                            call("python3 decode_key.py", shell=True) # Demande la clef
-                            
+            while event.action == "held" and event.direction == "up" :
+                #temps que le joystick est presse prend une deuxieme t.
+                tempb = sense.get_temperature()
+                tempc = sense.get_temperature_from_pressure()
+                if tempb > temp + 0.3 or tempc > temp + 0.3: #si la t augmente, affiche du rouge
+                    pro = False
+                    sense.clear(0, 255, 0)
+                    time.sleep(2)
+                    sense.clear()
+                    #Verifie s il y a un message enregistre, si oui lance le .py pour rentrer le mdp. S il n y en a pas lance message.py pour en rentrer un.
+                    f= open("message.txt","r") #ouvre le document message.txt
+                    message = f.read() #string message = contenu du doc
+                    f.close()
+                    if message == "" :
+                        call("python3 encode_key.py", shell=True) # Permet de rentrer la clef
+                    else :
+                        call("python3 decode_key.py", shell=True) # Demande la clef
+                        
                             
         elif sense.get_pixels() == dessin2 : #verifie si correspond au dessin secret /!\ kill switch
             pro = False
