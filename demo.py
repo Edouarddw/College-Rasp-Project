@@ -13,6 +13,7 @@ red = (255, 0, 0)
 white = (255,255,255)
 nothing = (0,0,0)
 list_color = [green,yellow,blue,red,nothing]
+tourne = True 
 
 dessin = [[0, 0, 0], [0, 0, 248], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
 [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
@@ -123,24 +124,23 @@ while pro == True :
     if sense.get_pixel(previous_x,previous_y) == [248, 252, 248] : #verifie si la position precedente est blanche,si oui, efface
         sense.set_pixel(previous_x,previous_y,0,0,0)
         
-    if event.direction == "down" and event.action == "held" : #"clean l'ecran
+    if event.direction == "down" and event.action == "held" : # clean l'ecran
         sense.clear()
         
     if event.direction == "up" and event.action == "held" : #quand validation
         sense.set_pixel(x,y,nothing) #efface le curseur
      
         if sense.get_pixels() == dessin : #verifie si correspond au dessin secret
-            pro = False
-            tourne = True
             while tourne :
                 event = sense.stick.wait_for_event() #attends le pressed
                 temp = sense.get_temperature() # quand pressed, prend la t.
                 
                 while event.action == "held" and event.direction == "up" :
-                    #temps que le joystick est pressé prend une deuxieme t.
+                    #temps que le joystick est presse prend une deuxieme t.
                     tempb = sense.get_temperature()
-                    
-                    if tempb > temp + 0.3 : #si la t augmente, affiche du rouge
+                    tempc = sense.get_temperature_from_pressure()
+                    if tempb > temp + 0.3 or tempc > temp + 0.3: #si la t augmente, affiche du rouge
+                        pro = False
                         tourne = False
                         sense.clear(0, 255, 0)
                         time.sleep(2)
@@ -157,8 +157,7 @@ while pro == True :
                             
         elif sense.get_pixels() == dessin2 : #verifie si correspond au dessin secret /!\ kill switch
             pro = False
-            while tourne :
-                tourne = False 
+            while True :
                 event = sense.stick.wait_for_event() #attends le pressed
                 temp = sense.get_temperature() # quand pressed, prend la t.
                 

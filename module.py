@@ -33,7 +33,10 @@ def key() :
     action = 0
     tourne = True
     while tourne :
-        sense.show_letter(str(len(liste_action)))
+        if len(liste_action) < 10 :
+            sense.show_letter(str(len(liste_action)))
+        else :
+            sense.show_message(str(len(liste_action)))
         event = sense.stick.wait_for_event()
         if event.action == "pressed" and event.direction == "middle" : #pression sur le joystick pour ajouter une position
             x = round(sense.get_accelerometer_raw()["x"])
