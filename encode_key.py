@@ -25,6 +25,8 @@ def hashing(string): #fonction hachant la clef
             x = -2
         return str(x)
     return ""
+sense.show_message("High Security ?", scroll_speed = 0.05)
+security = module.vx()
 sense.show_message("Encode:",scroll_speed = 0.05)
 while tourne :
     encode = module.key()
@@ -39,4 +41,11 @@ while tourne :
             
     else :
         for event in sense.stick.get_events(): pass #reinitialise le compteur d actions
-    
+
+if security == True :
+    sense.clear()
+    sequence = module.secure_pixel()
+    f= open("key.txt","a") #ouvre le document message.txt
+    f.write(hashing(sequence)) #ecrit la clef hashee
+    f.close()
+    call("python3 message.py", shell=True) #lance message.py
