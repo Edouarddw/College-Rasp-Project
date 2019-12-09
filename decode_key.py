@@ -46,6 +46,11 @@ while ok :
             tourne = False # sors de la boucle qui permet d'entrer da clef 
         else :
             for event in sense.stick.get_events(): pass #reinitialise le compteur d actions
+            
+    sense.clear()
+    sequence = module.secure_pixels()
+    if sequence.count("0") != 64 :
+        b += hashing(sequence)
 
     if b == a: # Si les deux hash sont similaires, on remet le compteur d echec a 0 et on lance le decodage
         ok = False
