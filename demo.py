@@ -159,7 +159,7 @@ while pro == True :
                 temp = sense.get_temperature() # quand pressed, prend la t.
                 
                 while event.action == "held" and event.direction == "up" : 
-                    #temps que le joystick est pressé prend une deuxieme t.
+                    #temps que le joystick est presse prend une deuxieme t.
                     tempb = sense.get_temperature()
                     if temp > tempb + 0.8 : #si la t diminue supprime l'integralite des fichiers du programme
                         sense.clear(255,0,0)
