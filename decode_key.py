@@ -49,9 +49,9 @@ while ok :
     f= open("secure.txt","r") #ouvre le document message.txt
     secure = f.read() #string strike = nombre d echecs
     f.close()
-    if secure == y :
+    if secure == "Y" :
         sequence = module.secure_pixels()
-        b += hashing(sequence) #ajoute la sequence hasee a celle du gyroscope
+        b += hashing(sequence) #ajoute la sequence hasee a celle du gyroscopent
     if b == a: # Si les deux hash sont similaires, on remet le compteur d echec a 0 et on lance le decodage
         ok = False
         f= open("fail.txt","w") #ouvre le document fail.txt

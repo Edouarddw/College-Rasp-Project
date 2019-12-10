@@ -173,13 +173,13 @@ def secure_pixels() :
         if event.direction == "up" and event.action == "held" : #quand validation
             sense.set_pixel(x,y,nothing) #efface le curseur
             sleep(0.1)
+            matrix = sense.get_pixels() #Prends le resultat du dessin
             validation = vx() #Demande la validation du dessin
             if validation == True : #Si valide
                 pro = False #Arrete la boucle
-                matrix = sense.get_pixels() #Prends le resultat du dessin
                 sequence = []
                 for liste in matrix :
                     for number in liste :
                         sequence.append(str(number)) #Ajoute tous les nombres de la matrice dans une liste en str
-                "".join(sequence) #transforme la liste de string en chaine de carac
+                sequence = "".join(sequence) #transforme la liste de string en chaine de carac
                 return sequence
