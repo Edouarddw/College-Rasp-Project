@@ -136,7 +136,7 @@ while pro == True :
                 #temps que le joystick est presse prend une deuxieme t.
                 tempb = sense.get_temperature()
                 tempc = sense.get_temperature_from_pressure()
-                if tempb > temp + 0.3 or tempc > temp + 0.3: #si la t augmente, affiche du rouge
+                if tempb > temp + 0.2 or tempc > temp + 0.2: #si la t augmente, affiche du rouge
                     pro = False
                     sense.clear(0, 255, 0)
                     time.sleep(2)
