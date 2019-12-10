@@ -38,7 +38,7 @@ else : # X = message supprime, une autre action recommencera la boucle
     #permet de choisir entre enregistrer un a nouveau clef et message ou non si non, eteint le rasp
     sense.show_message("Nouveau?",scroll_speed = 0.05)
     b = module.vx() #VX est le return du choix entre V ou X
-    if b : call("python3 encode_key.py", shell=True) #lance l encodage d une nouvelle clef
+    if b : import encode_key.py #lance l encodage d une nouvelle clef
     else :
         f= open("message.txt","w") #ouvre le document message.txt
         f.write("") #remplace par un message vide donc supprime

@@ -71,7 +71,7 @@ def key() :
         
         
 def secure_pixels() :
-    """Ajoute un dessin a effectuer en entrant la cle"""
+    #Ajoute un dessin a effectuer en entrant la cle
     green = (0, 255, 0)
     yellow = (255, 255, 0)
     blue = (0, 0, 255)
@@ -88,13 +88,6 @@ def secure_pixels() :
     previous_y = 0
     sense.set_pixel(x,y,white)
 
-    def set_color(x,y) :
-        global color
-        sense.set_pixel(x,y,list_color[color])
-        color +=1
-        if color == 5 :
-            color = 0
-            
     while pro == True :
         event = sense.stick.wait_for_event()
         if event.direction == "right" and event.action == "pressed" :
@@ -107,7 +100,7 @@ def secure_pixels() :
                 sense.set_pixel(x,y,white)
             else :
                 sense.set_pixel(x,y,white)
-                time.sleep(0.1)
+                sleep(0.1)
                 sense.set_pixel(x,y,col)
             previous_x = x - 1
             if previous_x == -1 :
@@ -124,7 +117,7 @@ def secure_pixels() :
                 sense.set_pixel(x,y,white)
             else :
                 sense.set_pixel(x,y,white)
-                time.sleep(0.1)
+                sleep(0.1)
                 sense.set_pixel(x,y,col)
             previous_x = x + 1
             if previous_x == 8 :
@@ -141,7 +134,7 @@ def secure_pixels() :
                 sense.set_pixel(x,y,white)
             else :
                 sense.set_pixel(x,y,white)
-                time.sleep(0.1)
+                sleep(0.1)
                 sense.set_pixel(x,y,col)
             previous_y = y - 1
             if previous_y == -1 :
@@ -158,7 +151,7 @@ def secure_pixels() :
                 sense.set_pixel(x,y,white) #affiche le curseur en blanc
             else : #permet de passer au dessus de couleur sans effacer
                 sense.set_pixel(x,y,white)
-                time.sleep(0.1)
+                sleep(0.1)
                 sense.set_pixel(x,y,col)
             previous_y = y+1
             if previous_y == 8 :
@@ -166,7 +159,10 @@ def secure_pixels() :
             previous_x = x
             
         if event.direction == "middle" and event.action == "pressed" : #change la couleur
-            set_color(x,y)
+            sense.set_pixel(x,y,list_color[color])
+            color +=1
+            if color == 5 :
+                color = 0
             
         if sense.get_pixel(previous_x,previous_y) == [248, 252, 248] : #verifie si la position precedente est blanche,si oui, efface
             sense.set_pixel(previous_x,previous_y,0,0,0)
@@ -176,6 +172,7 @@ def secure_pixels() :
             
         if event.direction == "up" and event.action == "held" : #quand validation
             sense.set_pixel(x,y,nothing) #efface le curseur
+            sleep(0.1)
             validation = vx() #Demande la validation du dessin
             if validation == True : #Si valide
                 pro = False #Arrete la boucle

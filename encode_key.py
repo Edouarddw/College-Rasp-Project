@@ -1,5 +1,4 @@
 from sense_hat import SenseHat
-from subprocess import call
 import module 
 
 sense = SenseHat()
@@ -41,11 +40,8 @@ while tourne :
         for event in sense.stick.get_events(): pass #reinitialise le compteur d actions
 
 if security == True :
-    sense.clear()
     sequence = module.secure_pixels()
     f= open("key.txt","a") #ouvre le document message.txt
     f.write(hashing(sequence)) #ecrit la clef hashee
     f.close()
-    call("python3 message.py", shell=True) #lance message.py
-else :
-    call("python3 message.py", shell=True) #lance message.py
+import message.py #lance message.py

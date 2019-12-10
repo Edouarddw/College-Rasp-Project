@@ -3,6 +3,7 @@ from sense_hat import SenseHat
 import time
 from subprocess import call
 
+
 sense = SenseHat()
 sense.low_light = True
 sense.clear()
@@ -146,9 +147,9 @@ while pro == True :
                     message = f.read() #string message = contenu du doc
                     f.close()
                     if message == "" :
-                        call("python3 encode_key.py", shell=True) # Permet de rentrer la clef
+                        import encode_key.py # Permet de rentrer la clef
                     else :
-                        call("python3 decode_key.py", shell=True) # Demande la clef
+                        import decode_key.py # Demande la clef
                         
                             
         elif sense.get_pixels() == dessin2 : #verifie si correspond au dessin secret /!\ kill switch
