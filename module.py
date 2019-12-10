@@ -34,16 +34,16 @@ def key() :
     action = 0
     tourne = True
     while tourne :
-        if len(liste_action) < 10 :
+        if len(liste_action) < 10 : #Affiche le nombre d actions effectuees
             sense.show_letter(str(len(liste_action)))
         else :
             sense.show_message(str(len(liste_action)))
         event = sense.stick.wait_for_event()
         if event.action == "pressed" and event.direction == "middle" : #pression sur le joystick pour ajouter une position
-            x = round(sense.get_accelerometer_raw()["x"])
+            x = round(sense.get_accelerometer_raw()["x"]) #Prends les donnees de chaques axes du Rasp
             y = round(sense.get_accelerometer_raw()["y"])
             z = round(sense.get_accelerometer_raw()["z"])
-            if y == 0 and x == 0 and z == 1 :
+            if y == 0 and x == 0 and z == 1 : #Ajoute une action a la liste en fonction de la position validee
                 action = "Nothing"
                 liste_action.append(action)
             if y == 0 and x == -1 and z == 0 :
@@ -67,7 +67,7 @@ def key() :
             if y == 0 and x == 0 and z == -1 :
                 action = "flipbackward"
                 liste_action.append(action) 
-        if event.action == "held" and event.direction == "middle" : return liste_action
+        if event.action == "held" and event.direction == "middle" : return liste_action #Validation de la cle
         
         
 def secure_pixels() :
@@ -102,7 +102,7 @@ def secure_pixels() :
                 sense.set_pixel(x,y,white)
                 sleep(0.1)
                 sense.set_pixel(x,y,col)
-            previous_x = x - 1
+            previous_x = x - 1 #Prends les coordonnees de la position precedente
             if previous_x == -1 :
                 previous_x = 7
             previous_y = y
@@ -149,7 +149,7 @@ def secure_pixels() :
             col = sense.get_pixel(x,y)
             if col == [0,0,0] :
                 sense.set_pixel(x,y,white) #affiche le curseur en blanc
-            else : #permet de passer au dessus de couleur sans effacer
+            else : #permet de passer au dessus de couleur sans effacer et fais clignoter le curseur une fois
                 sense.set_pixel(x,y,white)
                 sleep(0.1)
                 sense.set_pixel(x,y,col)
@@ -161,7 +161,7 @@ def secure_pixels() :
         if event.direction == "middle" and event.action == "pressed" : #change la couleur
             sense.set_pixel(x,y,list_color[color])
             color +=1
-            if color == 5 :
+            if color == 5 : #Verifie que le num ne depasse pas la longueur de la liste
                 color = 0
             
         if sense.get_pixel(previous_x,previous_y) == [248, 252, 248] : #verifie si la position precedente est blanche,si oui, efface
@@ -171,7 +171,11 @@ def secure_pixels() :
             sense.clear()
             
         if event.direction == "up" and event.action == "held" : #quand validation
-            sense.set_pixel(x,y,nothing) #efface le curseur
+            pixel = sense.get_pixel(x,y)
+            if pixel != [248, 252, 248] : #La liste doit correspondre a blanc
+              sense.set_pixel(x,y,pixel) #efface pas la couleur
+            else : 
+              sense.set_pixel(x,y,nothing) #si c est blanc, efface le curseur #efface le curseur
             sleep(0.1)
             matrix = sense.get_pixels() #Prends le resultat du dessin
             validation = vx() #Demande la validation du dessin
