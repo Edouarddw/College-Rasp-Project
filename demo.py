@@ -129,7 +129,11 @@ while pro == True :
         sense.clear()
         
     if event.direction == "up" and event.action == "held" : #quand validation
-        sense.set_pixel(x,y,nothing) #efface le curseur
+        pixel = sense.get_pixel(x,y)
+        if pixel != [248,252,248] : #La liste doit correspondre a blanc
+          sense.set_pixel(x,y,pixel) #efface pas la couleur
+        else : 
+          sense.set_pixel(x,y,nothing) #si c est blanc, efface le curseur
         temp = sense.get_temperature() # quand pressed, prend la t.
      
         if sense.get_pixels() == dessin : #verifie si correspond au dessin secret
