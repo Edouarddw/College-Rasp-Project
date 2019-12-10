@@ -172,10 +172,8 @@ def secure_pixels() :
             
         if event.direction == "up" and event.action == "held" : #quand validation
             pixel = sense.get_pixel(x,y)
-            if pixel != [248, 252, 248] : #La liste doit correspondre a blanc
-              sense.set_pixel(x,y,pixel) #efface pas la couleur
-            else : 
-              sense.set_pixel(x,y,nothing) #si c est blanc, efface le curseur #efface le curseur
+            if pixel == [248, 252, 248] : #La liste doit correspondre a blanc
+                sense.set_pixel(x,y,nothing) #si c est blanc, efface le curseur 
             sleep(0.1)
             matrix = sense.get_pixels() #Prends le resultat du dessin
             validation = vx() #Demande la validation du dessin
