@@ -40,8 +40,15 @@ while tourne :
         for event in sense.stick.get_events(): pass #reinitialise le compteur d actions
 
 if security == True :
+    f= open("secure.txt","w") #ouvre le document secure.txt
+    f.write("Y") #enregistre que c est high secure
+    f.close()
     sequence = module.secure_pixels()
     f= open("key.txt","a") #ouvre le document message.txt
     f.write(hashing(sequence)) #ecrit la clef hashee
+    f.close()
+else :
+    f= open("secure.txt","w") #ouvre le document secure
+    f.write("") #remets a 0 le high secure
     f.close()
 import message.py #lance message.py

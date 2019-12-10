@@ -35,6 +35,9 @@ a = module.vx() #VX est le return du choix entre V ou X
 if a :
     call("sudo shutdown now", shell=True) # V = stop le rasp
 else : # X = message supprime, une autre action recommencera la boucle
+    f= open("secure.txt","w") #ouvre le document secure
+    f.write("") #remets a 0 le high secure
+    f.close()
     #permet de choisir entre enregistrer un a nouveau clef et message ou non si non, eteint le rasp
     sense.show_message("Nouveau?",scroll_speed = 0.05)
     b = module.vx() #VX est le return du choix entre V ou X

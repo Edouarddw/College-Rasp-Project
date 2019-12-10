@@ -46,11 +46,13 @@ while ok :
             tourne = False # sors de la boucle qui permet d'entrer da clef 
         else :
             for event in sense.stick.get_events(): pass #reinitialise le compteur d actions
-    
-    sequence = module.secure_pixels()
-    if sequence.count("0") != 192 : # Si la matrice est differente d une matrice vide
-        b += hashing(sequence)
-
+    f= open("secure.txt","r") #ouvre le document message.txt
+    secure = f.read() #string strike = nombre d echecs
+    f.close()
+    if secure == y :
+        sequence = module.secure_pixels()
+        if sequence.count("0") != 192 : # Si la matrice est differente d une matrice vide
+            b += hashing(sequence)
     if b == a: # Si les deux hash sont similaires, on remet le compteur d echec a 0 et on lance le decodage
         ok = False
         f= open("fail.txt","w") #ouvre le document fail.txt
