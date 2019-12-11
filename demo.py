@@ -15,24 +15,24 @@ white = (255,255,255)
 nothing = (0,0,0)
 list_color = [green,yellow,blue,red,nothing]
 tourne = True 
-
-dessin = [[0, 0, 0], [0, 0, 248], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \ #Dessin pour acceder a encode
-[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
-[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
-[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [248, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
-[248, 252, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
-[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 252, 0], [248, 252, 0], \
-[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
-[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
-
-dessin2 = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \ #Dessin pour l auto destruction
-[0, 0, 0], [248, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [248, 0, 0], [0, 0, 0], \
-[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
-[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
-[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
-[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
-[0, 0, 0], [248, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [248, 0, 0], [0, 0, 0], \
-[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
+#Dessin pour acceder a l encode
+dessin = [[0, 0, 0], [0, 0, 248], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
+ [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
+ [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
+ [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [248, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
+ [248, 252, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
+ [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 252, 0], [248, 252, 0], \
+ [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
+ [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
+#Dessin pour l autodestruction
+dessin2 = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
+ [0, 0, 0], [248, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [248, 0, 0], [0, 0, 0], \
+ [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
+ [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
+ [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
+ [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], \
+ [0, 0, 0], [248, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [248, 0, 0], [0, 0, 0], \
+ [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
 
 pro = True
 color = 0
@@ -103,6 +103,7 @@ while pro == True :
         previous_x = x
         
     if event.direction == "up" and event.action == "pressed" :
+        temp = sense.get_temperature() #Prend la temp.
         y -= 1
         if y == -1 :
             y = 7
@@ -132,12 +133,11 @@ while pro == True :
         pixel = sense.get_pixel(x,y) #Prend la couleur du pixel
         if pixel == [248, 252, 248] : #Si le pixel est blanc, efface le curseur
           sense.set_pixel(x,y,nothing)
-        temp = sense.get_temperature() #Prend la temp.
      
         if sense.get_pixels() == dessin and event.action == "held" and event.direction == "up" : #Tant que corresond au dessin secret et que le joystick est maintenu vers le haut
             tempb = sense.get_temperature() #Prend une deuxieme temperature
             tempc = sense.get_temperature_from_pressure()
-            if tempb > temp + 0.2 or tempc > temp + 0.2: #si la t augmente, affiche du rouge
+            if tempb > temp + 0.3 or tempc > temp + 0.3: #si la t augmente, affiche du rouge
                 pro = False #Arrete la boucle permettant de dessiner
                 sense.clear(0, 255, 0)
                 time.sleep(2)
@@ -152,17 +152,12 @@ while pro == True :
                     import decode_key.py # Demande la clef
                         
                             
-        elif sense.get_pixels() == dessin2 : #verifie si correspond au dessin secret /!\ kill switch
-            pro = False
-            while True :
-                event = sense.stick.wait_for_event() #attends le pressed
-                temp = sense.get_temperature() # quand pressed, prend la t.
+        if sense.get_pixels() == dessin2 and event.action == "held" and event.direction == "up" : #Tant que corresond au dessin secret et que le joystick est maintenu vers le haut
+            tempb = sense.get_temperature() #Prend une deuxieme temperature
+            event = sense.stick.wait_for_event() #attends le pressed
+            if temp > tempb + 0.6 : #si la t diminue supprime l'integralite des fichiers du programme
+                pro = False
+                sense.clear(255,0,0)
+                call("rm demo.py encode_key.py message.py message.txt decode.py decode_key.py key.txt fail.txt module.py secure.txt ", shell=True) # supprime l integralite des fichiers
+                call("sudo shutdown now", shell=True) #eteint le rasp
                 
-                while event.action == "held" and event.direction == "up" : 
-                    #temps que le joystick est presse prend une deuxieme t.
-                    tempb = sense.get_temperature()
-                    if temp > tempb + 0.8 : #si la t diminue supprime l'integralite des fichiers du programme
-                        sense.clear(255,0,0)
-                        call("rm demo.py encode_key.py message.py message.txt decode.py decode_key.py key.txt fail.txt module.py", shell=True) # supprime l integralite des fichiers
-                        call("sudo shutdown now", shell=True) #eteint le rasp
-                        
