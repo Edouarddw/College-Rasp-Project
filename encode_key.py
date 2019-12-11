@@ -44,7 +44,25 @@ if security == True :
     f= open("secure.txt","w") #ouvre le document secure.txt
     f.write("Y") #enregistre que c est high secure
     f.close()
-    sequence = module.secure_pixels()
+    sequence = []
+    counta = 0
+    countB = 0
+    colore = 0
+    matrix = module.secure_pixels()
+    for liste in matrix :
+        for number in liste :
+            sequence.append(str(number)) #Ajoute tous les nombres de la matrice dans une liste en str
+            if number == 0 : countb += 1
+            counta +=1
+            if counta == 3 and countb != 3 : colore +=1
+            if counta == 3 :
+                counta = 0
+                countb = 0
+    sequence = "".join(sequence) #transforme la liste de string en chaine de carac
+    if colore % 2 == 0 :
+        f= open("secure.txt","w") #ouvre le document secure.txt
+        f.write("y") #enregistre que c est high secure
+        f.close()
     f= open("key.txt","a") #ouvre le document message.txt
     f.write(hashing(sequence)) #ecrit la clef hashee
     f.close()

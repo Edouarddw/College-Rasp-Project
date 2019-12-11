@@ -50,8 +50,13 @@ while ok :
     f= open("secure.txt","r") #ouvre le document message.txt
     secure = f.read() #string strike = nombre d echecs
     f.close()
-    if secure == "Y" :
-        sequence = module.secure_pixels()
+    if secure == "Y" or "y" :
+        sequence = []
+        matrix = module.secure_pixels()
+        for liste in matrix :
+            for number in liste :
+                sequence.append(str(number)) #Ajoute tous les nombres de la matrice dans une liste en str
+        sequence = "".join(sequence) #transforme la liste de string en chaine de carac
         b += hashing(sequence) #ajoute la sequence hasee a celle du gyroscopent
     if b == a: # Si les deux hash sont similaires, on remet le compteur d echec a 0 et on lance le decodage
         ok = False

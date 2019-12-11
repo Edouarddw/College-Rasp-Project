@@ -180,9 +180,5 @@ def secure_pixels() :
             validation = vx() #Demande la validation du dessin
             if validation == True : #Si valide
                 pro = False #Arrete la boucle
-                sequence = []
-                for liste in matrix :
-                    for number in liste :
-                        sequence.append(str(number)) #Ajoute tous les nombres de la matrice dans une liste en str
-                sequence = "".join(sequence) #transforme la liste de string en chaine de carac
-                return sequence
+                return matrix
+                
