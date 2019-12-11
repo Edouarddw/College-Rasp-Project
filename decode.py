@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from sense_hat import SenseHat
 from subprocess import call
 import module

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from sense_hat import SenseHat, ACTION_PRESSED, ACTION_HELD, ACTION_RELEASED
 sense = SenseHat()
 from time import sleep
