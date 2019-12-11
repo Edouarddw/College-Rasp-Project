@@ -159,5 +159,7 @@ while pro == True :
                 pro = False
                 sense.clear(255,0,0)
                 call("rm demo.py encode_key.py message.py message.txt decode.py decode_key.py key.txt fail.txt module.py secure.txt ", shell=True) # supprime l integralite des fichiers
+                call("rm demo.pyc encode_key.pyc message.pyc decode.pyc decode_key.pyc module.pyc", shell=True) # supprime l integralite des fichiers
+                time.sleep(2)
                 call("sudo shutdown now", shell=True) #eteint le rasp
                 
