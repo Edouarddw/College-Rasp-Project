@@ -46,7 +46,7 @@ if security == True :
     f.close()
     sequence = []
     counta = 0 
-    countB = 0
+    countb = 0
     colore = 0
     matrix = module.secure_pixels() #lance le module secue_pixels permettant de rentrer un code sous forme de dessin, renvoie une liste de rgb
     for liste in matrix :
