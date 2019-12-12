@@ -2,6 +2,7 @@
 from sense_hat import SenseHat
 from subprocess import call
 import module
+import random
 
 sense = SenseHat()
 sense.low_light = True
@@ -58,6 +59,33 @@ while ok :
                 sequence.append(str(number)) #Ajoute tous les nombres de la matrice dans une liste en str
         sequence = "".join(sequence) #transforme la liste de string en chaine de carac
         b += hashing(sequence) #ajoute la sequence hasee a celle du gyroscopent
+        temp = sense.get_temperature() #Prend la temp.
+        testtemp = True
+        testrandom = True
+        random = random.randint(9999,999999)
+        sense.show_message("message " + str(random),scroll_speed = 0.05) #Montre un faux message genere aleatoirement avant test temp
+        while testrandom : # test random : action a determiner en fonction de la parite du chiffre genere aleatoirement
+            if random % 2 == 0 : # si le chiffre genere aleatoirement est paire :
+            testrandom = False
+            else : # si le chiffre genere aleatoirement est impaire : 
+            testrandom = False
+        while testtemp : #test de la temperature : en fonction du nombre pixel dans le module de dessin, il faut augmenter ou diminuer la t.
+            if event.action == "held" and event.direction == "up": #si joystick maintenu vers le haut
+                tempb = sense.get_temperature() #Prend la temp une deuxieme fois
+                if tempb > temp + 0.3 and secure == "y": #Si la t augmente alors que le nombre de pixels colore dans l etape precedente etait paire
+                    testtemp = False # la sequence est validee et le code continue
+                if temp > tempb + 0.6 and secure =="Y": #Si la t diminue alors que n pixel etait impaire
+                    b += "a" #rajoute un caractere errone a la sequence de hash
+                    testtemp = False # la sequence continue de maniere erronee
+            if event.action == "held" and event.direction == "down": #si joystick maintenu vers le bas
+                tempb = sense.get_temperature() #Prend la temp une deuxieme fois
+                if tempb > temp + 0.3 and secure == "Y": #Si la t augmente alors que le nombre de pixels colore dans l etape precedente etait impaire
+                    b += "a" #rajoute un caractere errone a la sequence de hash
+                    testtemp = False # la sequence continue de maniere erronee 
+                if temp > tempb + 0.6 and secure =="y": #Si la t diminue alors que n pixel etait paire
+                    testtemp = False # la sequence est validee et le code continue
+                                        
+        
     if b == a: # Si les deux hash sont similaires, on remet le compteur d echec a 0 et on lance le decodage
         ok = False
         f= open("fail.txt","w") #ouvre le document fail.txt

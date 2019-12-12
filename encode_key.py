@@ -45,21 +45,21 @@ if security == True :
     f.write("Y") #enregistre que c est high secure
     f.close()
     sequence = []
-    counta = 0
+    counta = 0 
     countB = 0
     colore = 0
-    matrix = module.secure_pixels()
+    matrix = module.secure_pixels() #lance le module secue_pixels permettant de rentrer un code sous forme de dessin, renvoie une liste de rgb
     for liste in matrix :
         for number in liste :
             sequence.append(str(number)) #Ajoute tous les nombres de la matrice dans une liste en str
-            if number == 0 : countb += 1
-            counta +=1
-            if counta == 3 and countb != 3 : colore +=1
-            if counta == 3 :
+            if number == 0 : countb += 1 #si le nombre vaut 0, b+1
+            counta +=1 #a augmente de 1 a chaque iteration
+            if counta == 3 and countb != 3 : colore +=1 #si quand a = 3, b != 3 alors le pixel etait != d un pixel eteint ( dont le code rgb est 0,0,0 ) 
+            if counta == 3 : #remets a 0 les compteurs apres chaque trio de valeurs codant un seul et meme pixel
                 counta = 0
                 countb = 0
     sequence = "".join(sequence) #transforme la liste de string en chaine de carac
-    if colore % 2 == 0 :
+    if colore % 2 == 0 : #si le nombre de pixel colore est paire, enregistre un y minuscule a la place de la majuscule dans secure.txt, sera recupere dans decode_key
         f= open("secure.txt","w") #ouvre le document secure.txt
         f.write("y") #enregistre que c est high secure
         f.close()
