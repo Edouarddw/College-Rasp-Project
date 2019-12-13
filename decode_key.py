@@ -115,7 +115,11 @@ while ok :
                     else : 
                         c = "a" #rajoute un caractere errone a la sequence de hash
                         testparite = False # la sequence continue de maniere erronee
-                                        
+                
+                if event.action == "held" and event.direction == "middle": #si joystick maintenu vers le centre
+                    sense.show_message("recommencer?",scroll_speed = 0.05)
+                    b += "a" #ajoute un caractere errone a b pour que la sequence ne soit pas validee mais que c reste "" pour pouvoir recommencer depuis le debut
+                    testparite = False 
     if b + c == a: # Si les deux hash sont similaires, on remet le compteur d echec a 0 et on lance le decodage
         ok = False
         f= open("fail.txt","w") #ouvre le document fail.txt
