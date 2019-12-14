@@ -25,7 +25,7 @@ def hashing(string): #fonction hachant la clef
             x = -2
         return str(x)
     return ""
-sense.show_message("High Security?", scroll_speed = 0.04)
+sense.show_message("High Security?", scroll_speed = 0.05)
 security = module.vx()
 sense.show_message("Encode:",scroll_speed = 0.05)
 while tourne :
