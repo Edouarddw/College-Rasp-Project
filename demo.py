@@ -133,12 +133,12 @@ while pro == True :
         pixel = sense.get_pixel(x,y) #Prend la couleur du pixel
         if pixel == [248, 252, 248] : #Si le pixel est blanc, efface le curseur
             sense.set_pixel(x,y,nothing)
-        temp = sense.get_temperature() #Prend la temp.
      
         if sense.get_pixels() == dessin and event.action == "held" and event.direction == "up" : #Tant que corresond au dessin secret et que le joystick est maintenu vers le haut
             tempb = sense.get_temperature() #Prend une deuxieme temperature
             tempc = sense.get_temperature_from_pressure()
             if tempb > temp + 0.3 or tempc > temp + 0.3: #si la t augmente, affiche du vert et lance le .py correspondant a la situation
+                print ("b")
                 pro = False #Arrete la boucle permettant de dessiner
                 sense.clear(0, 255, 0)
                 time.sleep(2)
