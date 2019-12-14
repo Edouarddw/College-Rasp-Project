@@ -35,13 +35,28 @@ a = f.read() # on definit la premiere variable a comme premier hash a comparer
 f.close()
 #debut du code python qui va demander la cle permettant de dechiffrer le message
 
+
+#Regarde si un faux message a deja ete encode pour une ouverture precedente du message. Si l on ouvre le vrai message, c est aussi remis a 0 p
+#Pour que voir quelqu'un rentrer la clef de deverouillage complete ne suffise pas.
+f = open ("fmessage.txt","r")
+rand = f.read()
+f.close ()
+# S'il n'y en avait pas, on en cree un nouveau et on l'enregistre dans le .txt
+if rand == "" :
+    rand = random.randint(9999,999999) #genere un faux message aleatoirement, affiche en mode secure si le test de gyro et dessin sont passes
+    f = open ("fmessage.txt","w")
+    f.write(str(rand))
+    f.close ()
+    
+    
+
 sense.show_message("Decode",scroll_speed = 0.05)
 tourne = True # permet de rentrer a nouveau la suite de mouvements dans l espace si on choisit X lors de module.vx
-c = "" # String s'ajoutant au hash contenant "a" si une erreur a ete comise au sein de testparite ( apd ligne 69 ) 
-ok = True # Permet de reessayer si le code est errone
+c = "" # String ajoutee au hash. Dans le mode secure, elle contient "a" si les parties gyroscope et dessin ont ete validees. 
+ok = True # Permet de reessayer si le code est errone (enregistre une erreur dans "strike" à chaque itération) 
 while ok :
-    if c!= "" : # Si aucune erreur n'a ete comise dans le mode "secure" au sein du module testparite
-                # l'objectif est de ne pas montrer qu une erreur a ete comise lors du dernier testt car cela indiquerait que le message etait un faux
+    if c== "" : # Si dans le mode secure on a pas encore accede a la partie test de parite 
+                # l'objectif est de ne pas montrer qu une erreur a ete comise lors du dernier test car cela indiquerait que le message etait un faux
         while tourne : 
             decode = module.key()
             sense.show_message("Valider?",scroll_speed = 0.05)
@@ -62,12 +77,13 @@ while ok :
                     sequence.append(str(number)) #Ajoute tous les nombres de la matrice dans une liste en str
             sequence = "".join(sequence) #transforme la liste de string en chaine de carac
             b += hashing(sequence) #ajoute la sequence hasee a celle du gyroscopent
-            testparite = True
-            rand = random.randint(9999,999999) #genere un chiffre aleatoire
-            sense.show_message("message " + str(rand),scroll_speed = 0.05) #Montre un faux message genere aleatoirement avant test temp
-            for event in sense.stick.get_events(): pass # reinitialise
+            
+            if b == a : # si les sequences du gyroscope et du dessin sont correctes
+                c = "a" # ajout d'un caractere errone au hash (cfr:ligne 118) passes la partie dessin et gyro
+                sense.show_message("message", scroll_speed = 0.05 ) # deux show message differents pour que le mot soit plus rapide que les chiffres
+                sense.show_message(str(rand),scroll_speed = 0.08) #Montre un faux message genere aleatoirement avant le test de parite
         
-    if secure == "Y" or secure == "y" : # ne peut pas etre compris dans le if ligne 58 pour ne pas repeter toute la sequence en cas d erreur au seins de testparite
+    if secure == "Y" or secure == "y" and c != "" : # ne peut pas etre compris dans le if ligne 58 pour ne pas repeter toute la sequence en cas d erreur au seins de testparite
         testparite = True # permet de faire tourner le test de direction du joystick et de temperature temps qu'il n'a pas ete valide
         temp = sense.get_temperature() #Prend la temp.
         while testparite : #test de parités : on doit valider la bonne sequence en fonction de la parite du message secret et du nombre de pixels contenu dans le dessin
@@ -77,54 +93,49 @@ while ok :
                 # Si le message est paire, le joystick doit etre orriente vers le haut et vice-versa
                 # Si le nombre de pixels dans le dessin valide est pair, il faut creer une augmentation de temperature et vice-versa 
                 
-                  if event.action == "held" and event.direction == "up": #si joystick maintenu vers le haut
+                if event.action == "held" and event.direction == "up" and rand % 2 == 0: #si joystick maintenu vers le haut et que le message aleatoire est paire
                     tempb = sense.get_temperature() #Prend la temp une deuxieme fois
-                    if rand % 2 == 0 : # Si le message genere aleatoirement est paire
-                        #On est oblige de mettre toutes les possibilites car un esle: omettrait les imperfections des capteurs qui font que parfois rien n est detecte
-                        if tempb > temp + 0.3 and secure == "y" : # si la t augmente et que le nombre de pixel enregistré dans encode_key est pair
-                            testparite = False # la sequence est validee et le code continue
-                        if temp > tempb + 0.5 and secure == "y" : # Si la t diminue alors qu'on etait cense l'augmenter
-                            c = "a" #rajoute un caractere errone a la sequence de hash
-                            testparite = False # la sequence est validee avec le hash errone
+                    #On est oblige de mettre toutes les possibilites car un esle: omettrait les imperfections des capteurs qui font que parfois rien n est detecte
+                    if tempb > temp + 0.3 and secure == "y" : # si la t augmente et que le nombre de pixel enregistré dans encode_key est pair
+                        testparite = False # la sequence est validee et le code continue
+                        c = "" # remets le compteur a 0 pour que a == b 
+                    if temp > tempb + 0.5 and secure == "y" : # Si la t diminue alors qu'on etait cense l'augmenter
+                        testparite = False # la sequence est validee avec le hash errone
                                 
-                        if tempb < temp + 0.5 and secure == "Y" : # si la t diminue et que le nombre de pixel enregistré dans encode_key est impair
-                            testparite = False # la sequence est validee et le code continue
-                        if temp < tempb + 0.3 and secure == "Y" : # Si la t augmente alors qu'on etait cense diminuer
-                            c = "a" #rajoute un caractere errone a la sequence de hash
-                            testparite = False # la sequence est validee avec le hash errone                        
-                    else : 
-                        c = "a" #rajoute un caractere errone a la sequence de hash
+                    if tempb < temp + 0.5 and secure == "Y" : # si la t diminue et que le nombre de pixel enregistré dans encode_key est impair
+                        testparite = False # la sequence est validee et le code continue
+                        c = "" # remets le compteur a 0 pour que a == b
+                    if temp < tempb + 0.3 and secure == "Y" : # Si la t augmente alors qu'on etait cense diminuer
+                        testparite = False # la sequence est validee avec le hash errone                        
+                if event.action == "released" and event.direction == "up" and rand % 2 != 0 : # si le message aleatoire est impaire, continue avec hash errone
                         testparite = False # la sequence continue de maniere erronee
                         
                             
-                if event.action == "held" and event.direction == "down": #si joystick maintenu vers le bas
+                if event.action == "held" and event.direction == "down" and rand % 2 != 0: #si joystick maintenu vers le bas et que le message aleatoire est impaire
                     tempb = sense.get_temperature() #Prend la temp une deuxieme fois
-                    if rand % 2 != 0 : # SI le message genere aleatoirement est impaire
-                        #On est oblige de mettre toutes les possibilites car un esle: omettrait les imperfections des capteurs qui font que parfois rien n est detecte
-                        if tempb > temp + 0.3 and secure == "y" : # si la t augmente et que le nombre de pixel enregistré dans encode_key est pair
-                            testparite = False # la sequence est validee et le code continue
-                        if temp > tempb + 0.5 and secure == "y" : # Si la t diminue alors qu'on etait cense l'augmenter
-                            c = "a" #rajoute un caractere errone a la sequence de hash
-                            testparite = False # la sequence est validee avec le hash errone
+                    #On est oblige de mettre toutes les possibilites car un esle: omettrait les imperfections des capteurs qui font que parfois rien n est detecte
+                    if tempb > temp + 0.3 and secure == "y" : # si la t augmente et que le nombre de pixel enregistré dans encode_key est pair
+                        testparite = False # la sequence est validee et le code continue
+                        c = "" # remets le compteur a 0 pour que a == b 
+                    if temp > tempb + 0.5 and secure == "y" : # Si la t diminue alors qu'on etait cense l'augmenter
+                        testparite = False # la sequence est validee avec le hash errone
                                                     
-                        if tempb < temp + 0.5 and secure == "Y" : # si la t diminue et que le nombre de pixel enregistré dans encode_key est impair
-                            testparite = False # la sequence est validee et le code continue
-                        if temp < tempb + 0.3 and secure == "Y" : # Si la t augmente alors qu'on etait cense diminuer
-                            c = "a" #rajoute un caractere errone a la sequence de hash
-                            testparite = False # la sequence est validee avec le hash errone                        
-                    else : 
-                        c = "a" #rajoute un caractere errone a la sequence de hash
+                    if tempb < temp + 0.5 and secure == "Y" : # si la t diminue et que le nombre de pixel enregistré dans encode_key est impair
+                        testparite = False # la sequence est validee et le code continu
+                        c = "" # remets le compteur a 0 pour que a == b e
+                    if temp < tempb + 0.3 and secure == "Y" : # Si la t augmente alors qu'on etait cense diminuer
+                        testparite = False # la sequence est validee avec le hash errone                        
+                if event.action == "released" and event.direction == "down" and rand % 2 == 0 : # si le message aleatoire est paire, continue avec hash errone
                         testparite = False # la sequence continue de maniere erronee
                 
-                if event.action == "held" and event.direction == "middle": #si joystick maintenu vers le centre
-                    sense.show_message("recommencer?",scroll_speed = 0.05)
-                    b += "a" #ajoute un caractere errone a b pour que la sequence ne soit pas validee mais que c reste "" pour pouvoir recommencer depuis le debut
-                    testparite = False 
-    if b + c == a: # Si les deux hash sont similaires, on remet le compteur d echec a 0 et on lance le decodage
+    if b + c == a: # Si les deux hash sont similaires, on remet le compteur d echec a 0, le faux message et  on lance le decodage
         ok = False
         f= open("fail.txt","w") #ouvre le document fail.txt
         f.write("") #remets le conteur a 0
         f.close()
+        f = open ("fmessage.txt","w") #ouvre fmessage.txt
+        f.write("") #remets a 0
+        f.close ()
         import decode.py #lance decode.py
     else : #sinon on augmente le compteur de 1
         f= open("fail.txt","a") #ouvre le document fail.txt en mode .append
@@ -134,7 +145,9 @@ while ok :
     f= open("fail.txt","r") #ouvre le document message.txt
     strike = f.read() #string strike = nombre d echecs
     f.close()
-    if secure == "" : # ne previens pas si le mode secure etait selectionne et qu une erreur a ete comise. Objectif : faire croire que le message a bien ete donne
+    if c == "" and b + c != a: # ne previens pas si mode secure et que le faux message a ete donne car la sequence etait correcte
+        #Objectif : faire croire que le message a bien ete donne
+        # and ... pour ne pas afficher a nouveau si le compteur n a pas ete augmente car la sequence est correcte
         if strike == "I": 
             sense.show_message("FAUX",scroll_speed = 0.05, text_colour = (255, 0, 0))
         if strike == "II":
