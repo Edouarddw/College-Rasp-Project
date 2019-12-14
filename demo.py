@@ -132,7 +132,8 @@ while pro == True :
     if event.direction == "up" and event.action == "held" : #quand validation
         pixel = sense.get_pixel(x,y) #Prend la couleur du pixel
         if pixel == [248, 252, 248] : #Si le pixel est blanc, efface le curseur
-          sense.set_pixel(x,y,nothing)
+            sense.set_pixel(x,y,nothing)
+        temp = sense.get_temperature() #Prend la temp.
      
         if sense.get_pixels() == dessin and event.action == "held" and event.direction == "up" : #Tant que corresond au dessin secret et que le joystick est maintenu vers le haut
             tempb = sense.get_temperature() #Prend une deuxieme temperature
