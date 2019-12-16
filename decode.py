@@ -26,7 +26,7 @@ f= open("message.txt","r") #ouvre le document message.txt
 message = f.read() #string message = contenu du doc
 f.close()
 x= decode(key,message)
-while tourne :
+while tourne : #Permet de de faire tourner le message en boucle jusqu'a la pression du joystick
     sense.show_message(decode(key,message),scroll_speed = 0.05) #montre sur le rasp le message decode
     for event in sense.stick.get_events():
       if event.action == 'pressed':

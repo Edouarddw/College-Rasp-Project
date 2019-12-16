@@ -8,7 +8,7 @@ sense = SenseHat()
 sense.low_light = True
 
 
-def hashing(string):
+def hashing(string): #Fonction de hashing provenant de la librairie
 
     def to_32(value):
 

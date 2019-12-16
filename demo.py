@@ -2,7 +2,9 @@
 from sense_hat import SenseHat
 import time
 from subprocess import call
-
+#Se lance au demarage du rasp, interface de dessin dissimulant le sense-lock
+#Permet soit de lancer l'encodage de la clef si aucun message n'est enregistre et le decodage dans le cas contraire
+#Permet egalement de supprimer l'intergralite des fichiers de notre logiciel sur le rasp
 
 sense = SenseHat()
 sense.low_light = True
@@ -34,10 +36,12 @@ dessin2 = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0,
  [0, 0, 0], [248, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [248, 0, 0], [0, 0, 0], \
  [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
 
-pro = True
-color = 0
-x = 0
-y = 0
+pro = True #Permet de faire tourner la boucle permettant de dessiner jusqu'a ce que pro = False
+color = 0 #couleur du pixel
+x = 0 #Position sur l'axe des x du pixel
+y = 0 #Position sur l'axe des y du pixel
+
+#position precedente du point
 previous_x = 0
 previous_y = 0
 sense.set_pixel(x,y,white)
@@ -49,11 +53,11 @@ def set_color(x,y) :
     if color == 5 :
         color = 0
         
-while pro == True :
-    event = sense.stick.wait_for_event()
-    if event.direction == "right" and event.action == "pressed" :
+while pro == True : # Boucle permettant de dessiner
+    event = sense.stick.wait_for_event() #Attend pour une action
+    if event.direction == "right" and event.action == "pressed" : # Joystick vers la droite, pixel bouge vers la droite
         x += 1
-        if x == 8 :
+        if x == 8 : #Si on est a l'extremite droite de l'ecran, le pixel apparait du cote gauche
             x = 0
         color = 0
         col = sense.get_pixel(x,y)
@@ -68,9 +72,9 @@ while pro == True :
             previous_x = 7
         previous_y = y
         
-    if event.direction == "left" and event.action == "pressed" :
+    if event.direction == "left" and event.action == "pressed" : #Joystick vers la gauche, le pixel vers la gauche
         x -= 1
-        if x == -1 :
+        if x == -1 : # Si on est au bout de l'ecran, le pixel apparait du cote droit a la meme hauteur
             x = 7
         color = 0
         col = sense.get_pixel(x,y)
@@ -85,9 +89,9 @@ while pro == True :
             previous_x = 0
         previous_y = y
         
-    if event.direction == "down" and event.action == "pressed" :
+    if event.direction == "down" and event.action == "pressed" : #Joystick vers le bas, le pixel vers le bas
         y += 1
-        if y == 8 :
+        if y == 8 : #Si le pixel est en bas de l'ecran, il apparait en haut
             y = 0
         color = 0
         col = sense.get_pixel(x,y)
@@ -102,10 +106,10 @@ while pro == True :
             previous_y = 7
         previous_x = x
         
-    if event.direction == "up" and event.action == "pressed" :
+    if event.direction == "up" and event.action == "pressed" : #Joystick vers le haut, pixel vers le haut et prend la temperature 
         temp = sense.get_temperature() #Prend la temp.
         y -= 1
-        if y == -1 :
+        if y == -1 : #Si le pixel est tout au dessus de l'ecran, il apparait tout en bas
             y = 7
         color = 0
         col = sense.get_pixel(x,y)
@@ -160,7 +164,7 @@ while pro == True :
                 pro = False
                 sense.clear(255,0,0)
                 call("rm demo.py encode_key.py message.py message.txt decode.py decode_key.py key.txt fail.txt module.py secure.txt fmessage.txt ", shell=True) # supprime l integralite des fichiers
-                call("rm demo.pyc encode_key.pyc message.pyc decode.pyc decode_key.pyc module.pyc", shell=True) # supprime l integralite des fichiers
+                call("rm demo.pyc encode_key.pyc message.pyc decode.pyc decode_key.pyc module.pyc", shell=True) # supprime des fichiers pouvant toujours etre present apres suppression des .py
                 time.sleep(2)
                 call("sudo shutdown now", shell=True) #eteint le rasp
                 

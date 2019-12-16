@@ -8,7 +8,7 @@ x = 0 #Valeur initial du compteur = 0
 sense = SenseHat()
 Message = [] # Liste de stockage des caracteres du message
 file = open("key.txt", "r")
-key = file.read() # Clef du chiffrement vigenere
+key = file.read() # Clef du chiffrement vigenere qui est la sequence du hash encodee precedement 
 file.close()
 sense.low_light = True 
 lock = True #False si un message est deja enregistre
@@ -80,7 +80,7 @@ def Confirm(event): #Press ajoute la lettre. Hold confirme le message
                 call("sudo shutdown now", shell=True) #stop le rasp
                 sleep (2)
             else : 
-                lock = True
+                lock = True #permet d'encoder a nouveau un message
                 Message = [] #supprime les caracteres enregistre
                 sense.show_letter(str(x))
                 for event in sense.stick.get_events(): pass #reinitialise le compteur d actions

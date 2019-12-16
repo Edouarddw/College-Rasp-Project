@@ -25,10 +25,10 @@ def hashing(string): #fonction hachant la clef
             x = -2
         return str(x)
     return ""
-sense.show_message("High Security?", scroll_speed = 0.05)
-security = module.vx()
+sense.show_message("High Security?", scroll_speed = 0.05) #Demande si on veut le mode secure ou rapide
+security = module.vx() #module permettant de choisir V ou X si V, on lance le mode secure sinon rapide
 sense.show_message("Encode:",scroll_speed = 0.05)
-while tourne :
+while tourne : #Permet d'encoder la partie de la cle utilisant l'accelerometre
     encode = module.key()
     sense.show_message("Valider?",scroll_speed = 0.05)
     a = module.vx() #VX est le return du choix entre V ou X
@@ -40,7 +40,7 @@ while tourne :
     else :
         for event in sense.stick.get_events(): pass #reinitialise le compteur d actions
 
-if security == True :
+if security == True : #Si le mode secure avait ete enregistre 
     f= open("secure.txt","w") #ouvre le document secure.txt
     f.write("Y") #enregistre que c est high secure
     f.close()
