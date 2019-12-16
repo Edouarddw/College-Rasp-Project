@@ -7,7 +7,9 @@ import module
 x = 0 #Valeur initial du compteur = 0
 sense = SenseHat()
 Message = [] # Liste de stockage des caracteres du message
-key= "chocolat" # Clef du chiffrement vigenere
+file = open("key.txt", "r")
+key = file.read() # Clef du chiffrement vigenere
+file.close()
 sense.low_light = True 
 lock = True #False si un message est deja enregistre
 sense.show_message("Message:",scroll_speed = 0.05)
