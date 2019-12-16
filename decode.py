@@ -4,7 +4,9 @@ from subprocess import call
 import module
 sense = SenseHat()
 sense.clear()
-key= "chocolat" #clef introduite lors de l encodage
+file = open("key.txt","r")
+key = file.read() #Reprends la clef introduite lors de l encodage
+file.close() 
 tourne = True # defile jusqu a pression
 sense.low_light = True
 
